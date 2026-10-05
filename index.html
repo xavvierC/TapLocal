@@ -11,44 +11,80 @@
 <body>
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
-      <svg viewBox="500 1070 320 86" role="img" aria-label="TapLocal"><image href="assets/instagram-plaque.png" width="1254" height="1254"/></svg>
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" focusable="false">
+          <path d="M6 22.5c0-8.56 6.94-15.5 15.5-15.5"/>
+          <path d="M6 17c0-5.52 4.48-10 10-10"/>
+          <path d="M6 11.5C6 9.01 8.01 7 10.5 7"/>
+        </svg>
+      </span>
+      <span class="brand-wordmark"><span>Tap</span><strong>Local</strong></span>
     </a>
+
     <nav class="desktop-nav" aria-label="Navegação principal">
-      <a href="#como-funciona">Como funciona</a><a href="#produtos">Produtos</a><a href="#beneficios">Benefícios</a><a href="#depoimentos">Depoimentos</a><a href="#faq">FAQ</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#faq">FAQ</a>
     </nav>
+
     <a class="button primary header-cta" href="#produtos">Comprar agora <span class="arrow" aria-hidden="true">→</span></a>
-    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+
+    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
     <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
-      <a href="#como-funciona">Como funciona</a><a href="#produtos">Produtos</a><a href="#beneficios">Benefícios</a><a href="#depoimentos">Depoimentos</a><a href="#faq">FAQ</a><a href="#produtos">Comprar agora →</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#beneficios">Benefícios</a>
+      <a href="#depoimentos">Depoimentos</a>
+      <a href="#faq">FAQ</a>
+      <a href="#produtos">Comprar agora →</a>
     </nav>
   </header>
+
   <main>
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow">TRANSFORME VISITAS EM CLIENTES</p>
-        <h1 id="hero-title"><span>Mais avaliações</span><span>e seguidores,</span><span class="highlight">com um toque.<svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg></span></h1>
+        <h1 id="hero-title">
+          <span>Mais avaliações</span>
+          <span>e seguidores,</span>
+          <span class="highlight">com um toque.
+            <svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg>
+          </span>
+        </h1>
         <p class="description">Placas NFC + QR Code prontas para balcão.<br class="desktop-break"> O cliente aproxima o celular e abre direto seu Google ou Instagram em segundos.</p>
         <div class="hero-actions">
           <a class="button primary" href="#produtos">Montar meu kit <span class="arrow" aria-hidden="true">→</span></a>
           <a class="button secondary" href="#como-funciona"><span class="play" aria-hidden="true">▶</span> Ver como funciona</a>
         </div>
       </div>
+
       <div class="product-area" aria-label="Produtos TapLocal">
         <div class="product-stage">
           <div class="stage-glow" aria-hidden="true"></div>
           <svg class="stage-orbits" viewBox="0 0 700 570" aria-hidden="true" focusable="false">
-            <path d="M98 27 C242 -12 470 58 610 165"/>
-            <path d="M124 177 C-68 228 2 312 246 407 C483 504 700 503 679 429 C667 385 591 346 554 326"/>
+            <path d="M103 37 C253 -21 481 54 619 165"/>
+            <path d="M120 185 C-56 230 4 315 246 407 C486 499 704 497 680 424 C665 381 592 344 552 324"/>
           </svg>
-          <div class="plaque is-front" data-product="google"><img src="assets/google-plaque.png" width="1254" height="1254" fetchpriority="high" alt="Placa NFC TapLocal para avaliações no Google"></div>
-          <div class="plaque is-back" data-product="instagram"><img src="assets/instagram-plaque.png" width="1254" height="1254" alt="Placa NFC TapLocal para acesso ao Instagram"></div>
+
+          <div class="plaque is-front" data-product="google">
+            <img src="assets/google-plaque.png" width="1254" height="1254" fetchpriority="high" alt="Placa NFC TapLocal para avaliações no Google">
+          </div>
+          <div class="plaque is-back" data-product="instagram">
+            <img src="assets/instagram-plaque.png" width="1254" height="1254" alt="Placa NFC TapLocal para acesso ao Instagram">
+          </div>
         </div>
-        <div class="product-controls">
-          <button aria-label="Mostrar produto anterior" class="product-control">←</button>
+
+        <div class="product-controls" aria-label="Alternar produto em destaque">
+          <button type="button" aria-label="Mostrar produto anterior" class="product-control" data-direction="previous">←</button>
           <div class="indicators" aria-hidden="true"><span class="selected"></span><span></span></div>
-          <button aria-label="Mostrar próximo produto" class="product-control">→</button>
+          <button type="button" aria-label="Mostrar próximo produto" class="product-control" data-direction="next">→</button>
         </div>
-        <p class="sr-only" role="status" id="product-status">Produto em destaque: Google.</p>
+        <p class="sr-only" role="status" aria-live="polite" id="product-status">Produto em destaque: Google.</p>
       </div>
     </section>
   </main>

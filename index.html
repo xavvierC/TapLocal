@@ -11,14 +11,9 @@
 <body>
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 32 32" focusable="false">
-          <path d="M6 22.5c0-8.56 6.94-15.5 15.5-15.5"/>
-          <path d="M6 17c0-5.52 4.48-10 10-10"/>
-          <path d="M6 11.5C6 9.01 8.01 7 10.5 7"/>
-        </svg>
-      </span>
-      <span class="brand-wordmark"><span>Tap</span><strong>Local</strong></span>
+      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
+        <image href="assets/taplocal-logo.png" width="2172" height="724"/>
+      </svg>
     </a>
 
     <nav class="desktop-nav" aria-label="Navegação principal">
@@ -29,7 +24,7 @@
       <a href="#faq">FAQ</a>
     </nav>
 
-    <a class="button primary header-cta" href="#produtos">Comprar agora <span class="arrow" aria-hidden="true">→</span></a>
+    <a class="button primary header-cta" href="#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a>
 
     <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
       <span></span><span></span><span></span>
@@ -65,18 +60,20 @@
 
       <div class="product-area" aria-label="Produtos TapLocal">
         <div class="product-stage">
+          <div class="stage-atmosphere" aria-hidden="true">
+            <svg class="orbit" viewBox="0 0 720 620" preserveAspectRatio="none"><defs><linearGradient id="orbit-light"><stop stop-color="#31a7ff" stop-opacity="0"/><stop offset=".3" stop-color="#31a7ff"/><stop offset=".75" stop-color="#146cff"/><stop offset="1" stop-color="#31a7ff" stop-opacity="0"/></linearGradient></defs><ellipse cx="360" cy="340" rx="335" ry="175" transform="rotate(20 360 340)"/></svg>
+          </div>
           <div class="plaque is-front" data-product="google">
-            <img src="assets/google-plaque.png" width="1254" height="1254" fetchpriority="high" alt="Placa NFC TapLocal para avaliações no Google">
+            <svg class="plaque-art" viewBox="160 40 1020 1190" role="img" aria-label="Placa NFC TapLocal para avaliações no Google"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
           </div>
           <div class="plaque is-back" data-product="instagram">
-            <img src="assets/instagram-plaque.png" width="1254" height="1254" alt="Placa NFC TapLocal para acesso ao Instagram">
+            <svg class="plaque-art" viewBox="160 40 1020 1190" role="img" aria-label="Placa NFC TapLocal para acesso ao Instagram"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
           </div>
-        </div>
-
         <div class="product-controls" aria-label="Alternar produto em destaque">
           <button type="button" aria-label="Mostrar produto anterior" class="product-control" data-direction="previous">←</button>
-          <div class="indicators" aria-hidden="true"><span class="selected"></span><span></span></div>
+          <div class="indicators"><button type="button" class="selected" data-select-product="google" aria-label="Mostrar placa Google" aria-pressed="true"></button><button type="button" data-select-product="instagram" aria-label="Mostrar placa Instagram" aria-pressed="false"></button></div>
           <button type="button" aria-label="Mostrar próximo produto" class="product-control" data-direction="next">→</button>
+        </div>
         </div>
         <p class="sr-only" role="status" aria-live="polite" id="product-status">Produto em destaque: Google.</p>
       </div>

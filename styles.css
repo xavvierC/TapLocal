@@ -166,7 +166,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
   top: 0;
   width: var(--card-size);
   transform-origin: top left;
-  will-change: transform, opacity, filter;
+  will-change: auto;
   transition: transform var(--swap), opacity var(--swap), filter var(--swap), z-index 0s 290ms;
 }
 .plaque.is-front {
@@ -182,6 +182,49 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
   filter: drop-shadow(0 18px 30px rgba(25,60,115,.08));
 }
 .plaque-art { display: block; width: 100%; height: auto; user-select: none; pointer-events: none; }
+
+/* Inner layers keep the carousel slot transforms and resting artwork unchanged. */
+.plaque-float { perspective: 1200px; animation: plaque-float 7s ease-in-out infinite paused; }
+.plaque[data-product="instagram"] .plaque-float { animation-delay: -3.5s; }
+.plaque-depth {
+  position: relative;
+  transform: translate3d(var(--depth-x,0px),var(--depth-y,0px),0) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));
+  transform-origin: center;
+}
+.plaque-sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  mask-size: 122.941176% 105.378151%;
+  mask-position: 68.376068% 62.5%;
+  mask-repeat: no-repeat;
+  transition: opacity 240ms ease;
+}
+.plaque[data-product="google"] .plaque-sheen { mask-image: url("assets/google-plaque-portrait.png"); }
+.plaque[data-product="instagram"] .plaque-sheen { mask-image: url("assets/instagram-plaque-portrait.png"); }
+.plaque-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse,rgba(255,255,255,.9),rgba(220,239,255,.4) 30%,transparent 65%);
+  transform: translate(calc(var(--mx,50%) - 50%),calc(var(--my,50%) - 50%));
+}
+.product-stage.motion-running .plaque-float { animation-play-state: running; }
+.product-stage:is(.motion-running,.is-interacting,.is-swapping) .plaque { will-change: transform; }
+@media (hover:hover) and (pointer:fine) {
+  .product-stage.is-interacting .plaque-sheen { opacity: .18; }
+}
+@media (hover:none), (pointer:coarse) {
+  .plaque-float { --float-amplitude: 3px; }
+}
+@keyframes plaque-float {
+  0%,50%,100% { transform: translateY(0); }
+  25% { transform: translateY(var(--float-amplitude,6px)); }
+  75% { transform: translateY(calc(-1 * var(--float-amplitude,6px))); }
+}
 
 .product-controls {
   position: absolute;
@@ -284,4 +327,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .button:hover, .product-control:hover, .button:hover .arrow { transform: none; }
   .plaque { will-change: auto; }
+  .plaque-depth { transform: none; }
+  .plaque-sheen { display: none; }
 }

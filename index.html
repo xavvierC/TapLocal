@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Placas NFC + QR Code TapLocal para avaliações no Google e acesso ao Instagram com um toque.">
   <title>TapLocal — Mais avaliações e seguidores, com um toque.</title>
+  <script>
+    (() => {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      const navigation = performance.getEntriesByType('navigation')[0];
+      const type = navigation && navigation.type;
+      const shouldReset = type === 'reload' || type === 'back_forward' || !location.hash;
+      if ((type === 'reload' || type === 'back_forward') && location.hash) {
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+      const reset = () => {
+        if (shouldReset) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      };
+      reset();
+      document.addEventListener('DOMContentLoaded', reset, { once: true });
+      window.addEventListener('load', reset, { once: true });
+      window.addEventListener('pageshow', event => { if (event.persisted) reset(); });
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css?v=how-it-works-1">
   <script src="app.js?v=how-it-works-1" defer></script>
 </head>

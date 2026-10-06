@@ -32,8 +32,10 @@ function showProduct(product) {
   document.querySelectorAll('[data-select-product]').forEach(dot => {
     const selected = dot.dataset.selectProduct === activeProduct;
     dot.classList.toggle('selected', selected);
-    dot.setAttribute('aria-pressed', String(selected));
+    dot.setAttribute('aria-selected', String(selected));
+    dot.tabIndex = selected ? 0 : -1;
   });
+  document.querySelector('.product-controls').dataset.active = activeProduct;
   document.querySelector('#product-status').textContent = `Produto em destaque: ${activeProduct === 'google' ? 'Google' : 'Instagram'}.`;
 }
 function toggleProduct() {
@@ -42,14 +44,31 @@ function toggleProduct() {
 document.querySelectorAll('[data-select-product]').forEach(button => {
   button.addEventListener('click', () => showProduct(button.dataset.selectProduct));
 });
-document.querySelectorAll('.product-control').forEach(button => button.addEventListener('click', toggleProduct));
+
 document.querySelector('.product-area').addEventListener('keydown', event => {
   if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
     event.preventDefault();
     toggleProduct();
+    document.querySelector('[data-select-product=' + activeProduct + ']').focus();
   }
 });
 
+// Touch gestures reuse activeProduct; vertical scrolling remains native.
+const swipeStage = document.querySelector('.product-stage');
+let swipeStart;
+swipeStage.addEventListener('pointerdown', event => {
+  if (event.pointerType === 'touch' && !event.target.closest('.product-controls')) {
+    swipeStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    swipeStage.setPointerCapture(event.pointerId);
+  }
+});
+swipeStage.addEventListener('pointerup', event => {
+  if (!swipeStart || swipeStart.id !== event.pointerId) return;
+  const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
+  swipeStart = undefined;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5) toggleProduct();
+});
+swipeStage.addEventListener('pointercancel', () => { swipeStart = undefined; });
 // Decorative motion is independent of the carousel's activeProduct and slot transforms.
 const plaqueMotion = (() => {
   const stage = document.querySelector('.product-stage');

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Placas NFC + QR Code TapLocal para avaliações no Google e acesso ao Instagram com um toque.">
   <title>TapLocal — Mais avaliações e seguidores, com um toque.</title>
-  <link rel="stylesheet" href="styles.css?v=plaque-motion-1">
-  <script src="app.js?v=plaque-motion-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=seamless-switcher-1">
+  <script src="app.js?v=seamless-switcher-1" defer></script>
 </head>
 <body>
   <header class="header container">
@@ -69,11 +69,7 @@
           <div class="plaque is-back" data-product="instagram">
             <div class="plaque-float"><div class="plaque-depth"><svg class="plaque-art" viewBox="160 40 1020 1190" role="img" aria-label="Placa NFC TapLocal para acesso ao Instagram"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg><span class="plaque-sheen" aria-hidden="true"></span></div></div>
           </div>
-        <div class="product-controls" aria-label="Alternar produto em destaque">
-          <button type="button" aria-label="Mostrar produto anterior" class="product-control" data-direction="previous">←</button>
-          <div class="indicators"><button type="button" class="selected" data-select-product="google" aria-label="Mostrar placa Google" aria-pressed="true"></button><button type="button" data-select-product="instagram" aria-label="Mostrar placa Instagram" aria-pressed="false"></button></div>
-          <button type="button" aria-label="Mostrar próximo produto" class="product-control" data-direction="next">→</button>
-        </div>
+        <div class="product-controls" role="tablist" aria-label="Produto em destaque"><span class="switcher-thumb" aria-hidden="true"></span><button type="button" role="tab" class="selected" data-select-product="google" aria-selected="true" tabindex="0">Google</button><button type="button" role="tab" data-select-product="instagram" aria-selected="false" tabindex="-1">Instagram</button></div>
         </div>
         <p class="sr-only" role="status" aria-live="polite" id="product-status">Produto em destaque: Google.</p>
       </div>

@@ -136,3 +136,15 @@ const plaqueMotion = (() => {
     swapTimer = setTimeout(() => { swapping = false; stage.classList.remove('is-swapping'); sync(); }, reduced.matches ? 0 : 580);
   } };
 })();
+
+// Como funciona reveals once; all content stays visible without JS or with reduced motion.
+const howJourney = document.querySelector('.how-journey');
+if (howJourney && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  howJourney.classList.add('is-pending');
+  const howReveal = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    howJourney.classList.replace('is-pending', 'is-revealed');
+    howReveal.disconnect();
+  }, { threshold: .12 });
+  howReveal.observe(howJourney);
+}

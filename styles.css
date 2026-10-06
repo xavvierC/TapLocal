@@ -64,10 +64,32 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 .arrow { font-size: 25px; line-height: 1; transition: transform 180ms ease; }
 .button:hover .arrow { transform: translateX(3px); }
 .header-cta { justify-self: end; height: 48px; font-size: 15px; padding-inline: 24px; }
-.secondary { border: 1px solid #dde5f0; background: rgba(255,255,255,.9); color: #101828; }
-.secondary:hover { background: #f8fafc; border-color: #c8d4e6; transform: translateY(-1px); }
-.play { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; background: var(--blue); color: white; font-size: 10px; padding-left: 2px; }
-
+/* Scope the refinement to the Hero; the header CTA retains its existing styles. */
+.hero-actions .button {
+  height: 60px;
+  margin-block: -2px;
+  gap: 12px;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, background 200ms ease-out;
+}
+.hero-actions .primary {
+  padding: 0 30px 0 34px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  background: linear-gradient(180deg,#2b7bff 0%,#146cff 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28),0 12px 28px rgba(20,108,255,.28);
+}
+.hero-actions .primary:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.28),0 14px 32px rgba(20,108,255,.34); }
+.hero-actions .primary:active { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.28),0 6px 16px rgba(20,108,255,.20); }
+.cta-arrow { display: grid; place-items: center; flex: 0 0 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,.18); transition: transform 200ms ease-out; }
+.cta-arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hero-actions .primary:hover .cta-arrow { transform: translateX(3px); }
+.hero-actions .secondary { padding: 0 28px; font-size: 16px; font-weight: 600; color: #101828; background: #fff; border: 1px solid rgba(16,24,40,.14); box-shadow: 0 4px 14px rgba(25,60,115,.06); }
+.hero-actions .secondary:hover { background: #f5f9ff; border-color: rgba(20,108,255,.35); transform: translateY(-2px); }
+.hero-actions .secondary:active { transform: translateY(0); }
+.hero-actions .button:focus-visible { outline: 2px solid #146cff; outline-offset: 3px; }
+.play { display: grid; place-items: center; flex: 0 0 32px; height: 32px; border-radius: 50%; background: rgba(20,108,255,.10); color: #146cff; }
+.play svg { width: 18px; height: 18px; fill: currentColor; }
 .menu-trigger { display: none; border: 1px solid var(--border); background: white; border-radius: 50%; width: 44px; height: 44px; padding: 12px; }
 .menu-trigger span { display: block; background: var(--ink); height: 2px; margin: 4px 0; border-radius: 2px; }
 .mobile-nav {
@@ -348,8 +370,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 }
 @media (max-width:600px) {
   .hero::before { opacity: .6; }
-  .hero-actions { flex-direction: column; }
-  .hero-actions .button { width: 100%; }
+
   .product-stage { height: calc(clamp(340px,93vw,420px) + 16px); }
 }
 @media (min-width:768px) and (max-width:899px) {
@@ -370,4 +391,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
   .plaque { will-change: auto; }
   .plaque-depth { transform: none; }
   .plaque-sheen { display: none; }
+}
+@media (max-width:560px) {
+  .hero-actions { flex-direction: column; align-items: flex-start; gap: 12px; min-height: 126px; justify-content: center; }
+  .hero-actions .button { width: 100%; max-width: 360px; height: 56px; margin-block: 0; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero-actions .button, .cta-arrow { transition: background 200ms ease-out !important; }
+  .hero-actions .button:hover, .hero-actions .primary:hover .cta-arrow { transform: none; }
 }

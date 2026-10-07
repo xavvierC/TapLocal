@@ -1,3 +1,12 @@
+// TODO: Replace these placeholders with the real checkout and reseller contact URLs.
+const checkoutUrls = {
+  individualGoogle: '#',
+  individualInstagram: '#',
+  duo: '#',
+  kit: '#',
+  whatsappReseller: '#'
+};
+
 const menuTrigger = document.querySelector('.menu-trigger');
 const mobileNav = document.querySelector('#mobile-nav');
 function setMenuOpen(isOpen, restoreFocus = false) {
@@ -147,4 +156,62 @@ if (howJourney && 'IntersectionObserver' in window && !matchMedia('(prefers-redu
     howReveal.disconnect();
   }, { threshold: .12 });
   howReveal.observe(howJourney);
+}
+
+// Catalog state is independent of the Hero carousel.
+const catalog = document.querySelector('#produtos');
+if (catalog) {
+  catalog.querySelectorAll('[data-checkout]').forEach(link => {
+    link.href = checkoutUrls[link.dataset.checkout];
+  });
+  const tabs = [...catalog.querySelectorAll('.catalog-tabs [role="tab"]')];
+  const panels = [...catalog.querySelectorAll('.catalog-panel')];
+  const destinations = [...catalog.querySelectorAll('[data-individual]')];
+  function selectTab(index) {
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+      panels[i].classList.toggle('is-active', i === index);
+      panels[i].setAttribute('aria-hidden', String(i !== index));
+      panels[i].inert = i !== index;
+    });
+    catalog.querySelector('.catalog-tabs').dataset.second = String(index === 1);
+  }
+  function selectDestination(index) {
+    const product = destinations[index].dataset.individual;
+    destinations.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+    });
+    catalog.querySelector('.catalog-destination').dataset.second = String(index === 1);
+    catalog.querySelectorAll('[data-individual-art]').forEach(art => {
+      art.classList.toggle('is-selected', art.dataset.individualArt === product);
+    });
+    const link = catalog.querySelector('.catalog-individual [data-checkout]');
+    link.dataset.checkout = product === 'google' ? 'individualGoogle' : 'individualInstagram';
+    link.href = checkoutUrls[link.dataset.checkout];
+  }
+  function wireTabs(items, select) {
+    items.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', event => {
+        const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+        if (!keys.includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length;
+        select(next); items[next].focus();
+      });
+    });
+  }
+  wireTabs(tabs, selectTab);
+  wireTabs(destinations, selectDestination);
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const grid = catalog.querySelector('.catalog-grid');
+    grid.classList.add('is-pending');
+    const reveal = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      grid.classList.replace('is-pending', 'is-revealed'); reveal.disconnect();
+    }, { threshold: .05 });
+    reveal.observe(grid);
+  }
 }

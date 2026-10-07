@@ -135,6 +135,80 @@
         </div>
       </div>
     </section>
+    <!-- Produtos: real assets and checkout destinations configured in app.js. -->
+    <section id="produtos" class="catalog" aria-labelledby="catalog-title">
+      <div class="container">
+        <div class="catalog-heading">
+          <p class="eyebrow">PRODUTOS</p>
+          <h2 id="catalog-title">Você escolhe o destino.<br><span class="catalog-blue">A gente configura a <span class="highlight catalog-last-word">placa.<svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg></span></span></h2>
+          <p>Google, Instagram ou os dois. Você envia o seu link e recebe a placa pronta para o balcão.</p>
+        </div>
+        <div class="catalog-switcher catalog-tabs" role="tablist" aria-label="Tipo de compra">
+          <span class="catalog-thumb" aria-hidden="true"></span>
+          <button type="button" role="tab" id="business-tab" aria-controls="business-panel" aria-selected="true" tabindex="0">Para o meu negócio</button>
+          <button type="button" role="tab" id="reseller-tab" aria-controls="reseller-panel" aria-selected="false" tabindex="-1">Para revender</button>
+        </div>
+        <div class="catalog-panels">
+          <div id="business-panel" class="catalog-panel is-active" role="tabpanel" aria-labelledby="business-tab">
+            <div class="catalog-grid">
+              <article class="catalog-card catalog-individual" aria-labelledby="individual-title">
+                <div class="catalog-image catalog-single" aria-hidden="true">
+                  <svg class="catalog-plaque is-selected" data-individual-art="google" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" data-individual-art="instagram" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="individual-title">Individual</h3>
+                  <p class="catalog-subtitle">Um destino, uma placa.</p>
+                  <div class="catalog-switcher catalog-destination" role="tablist" aria-label="Destino da placa Individual">
+                    <span class="catalog-thumb" aria-hidden="true"></span>
+                    <button type="button" role="tab" aria-selected="true" tabindex="0" data-individual="google">Google</button>
+                    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-individual="instagram">Instagram</button>
+                  </div>
+                  <p class="catalog-price">R$ 99,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <ul class="catalog-features"><li>1 placa, Google ou Instagram</li><li>NFC + QR Code</li><li>Configurada e pronta para usar</li></ul>
+                  <a class="catalog-buy" href="#" data-checkout="individualGoogle" aria-label="Quero esta placa — Individual">Quero esta placa <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+              <article class="catalog-card catalog-duo" aria-labelledby="duo-title">
+                <div class="catalog-image catalog-pair" aria-hidden="true">
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="duo-title">Duo TapLocal</h3><p class="catalog-subtitle">Duas placas, dois destinos.</p>
+                  <span class="catalog-saving">Economize R$ 19,90</span>
+                  <p class="catalog-price">R$ 179,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <ul class="catalog-features"><li>1 placa Google + 1 Instagram</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+                  <a class="catalog-buy" href="#" data-checkout="duo" aria-label="Quero esta placa — Duo TapLocal">Quero esta placa <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+              <article class="catalog-card catalog-kit" aria-labelledby="kit-title">
+                <div class="catalog-image catalog-stack" aria-hidden="true">
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="kit-title">Kit Negócio</h3><p class="catalog-subtitle">Ideal para vários pontos de atendimento.</p>
+                  <p class="catalog-price">R$ 299,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <ul class="catalog-features"><li>4 placas à escolha</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+                  <a class="catalog-buy" href="#" data-checkout="kit" aria-label="Quero esta placa — Kit Negócio">Quero esta placa <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+            </div>
+            <div class="catalog-process"><p>Depois do pedido:</p><ol><li><span aria-hidden="true">1</span>Você envia o seu link</li><li><span aria-hidden="true">2</span>A gente configura a placa</li><li><span aria-hidden="true">3</span>Ela chega pronta</li></ol></div>
+          </div>
+          <div id="reseller-panel" class="catalog-panel" role="tabpanel" aria-labelledby="reseller-tab" aria-hidden="true" inert>
+            <article class="catalog-reseller">
+              <h3>Para revender</h3>
+              <p>Placas em branco, em maior quantidade. Você configura do seu jeito.</p>
+              <a class="catalog-buy" href="#" data-checkout="whatsappReseller">Falar sobre revenda <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>

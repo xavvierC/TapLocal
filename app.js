@@ -176,6 +176,11 @@ if (catalog) {
       panels[i].inert = i !== index;
     });
     catalog.querySelector('.catalog-tabs').dataset.second = String(index === 1);
+    const isReseller = index === 1;
+    catalog.dataset.audience = isReseller ? 'reseller' : 'retail';
+    catalog.querySelector('.catalog-retail-title').setAttribute('aria-hidden', String(isReseller));
+    catalog.querySelector('.catalog-reseller-title').hidden = !isReseller;
+    catalog.querySelector('.catalog-heading > p:last-child').setAttribute('aria-hidden', String(isReseller));
   }
   function selectDestination(index) {
     const product = destinations[index].dataset.individual;

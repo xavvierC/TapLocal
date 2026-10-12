@@ -84,6 +84,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 .account-menu [role="menuitem"]:hover { background: #f3f8ff; }
 .account-menu [role="menuitem"]:focus-visible { background: #e8f1ff; outline: 2px solid var(--blue); outline-offset: -2px; }
 .account-divider { height: 1px; margin: 6px 0; background: #e8f1ff; }
+.account-auth-error { position: absolute; top: 68px; right: 32px; max-width: 300px; padding: 12px 16px; border-radius: 12px; background: #fff; border: 1px solid var(--border); font-size: 14px; box-shadow: 0 8px 24px rgba(25,60,115,.10); }
+.account-auth-error[hidden] { display: none; }
 @keyframes account-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width:1023px) {
   .header-actions { display: flex; }

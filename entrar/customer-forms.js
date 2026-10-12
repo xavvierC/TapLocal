@@ -13,6 +13,18 @@ function showFormError(message) {
   error.hidden = !message;
   setFormLoading(false);
 }
+function showFormSuccess(message, linkHref, linkLabel) {
+  setFormLoading(false);
+  customerForm.hidden = true;
+  document.querySelector('.login-create').hidden = true;
+  const panel = document.querySelector('#auth-result');
+  panel.querySelector('p').textContent = message;
+  const link = panel.querySelector('a');
+  link.href = linkHref;
+  link.textContent = linkLabel;
+  panel.hidden = false;
+  panel.focus();
+}
 function emailError(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) ? '' : 'Digite um e-mail válido.';
 }
@@ -44,7 +56,7 @@ function setupCustomerForm(rules, submitRequest, failureMessage) {
     if (invalid.length) { invalid[0].focus(); return; }
     setFormLoading(true);
     try { await submitRequest(); }
-    catch { showFormError(failureMessage); }
+    catch (error) { showFormError(error.message || failureMessage); }
   });
 }
 document.querySelectorAll('.password-toggle').forEach(toggle => {

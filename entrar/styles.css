@@ -24,6 +24,11 @@ html:has(.login-page) { overflow-y: scroll; }
 .password-toggle[aria-pressed="true"] .eye-slash { display: block; }
 .login-error { color: var(--error); margin: 8px 0 0; font-size: 14px; line-height: 1.4; }
 .login-error[hidden] { display: none; }
+.auth-result[hidden],.login-create[hidden] { display: none; }
+.auth-result { margin-top: 28px; color: var(--muted); font-size: 17px; line-height: 1.5; }
+.auth-result p { margin: 0 0 16px; }
+.auth-result a { display: inline-flex; align-items: center; min-height: 44px; color: var(--deep-blue); font-weight: 600; text-decoration: underline; }
+.auth-result:focus { outline: 2px solid var(--blue); outline-offset: 8px; }
 .login-recovery { display: flex; justify-content: flex-end; margin: 8px 0 20px; }
 .login-recovery a,.login-create a { min-height: 44px; display: inline-flex; align-items: center; color: var(--deep-blue); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 .login-submit { width: 100%; height: 60px; border: 0; position: relative; box-shadow: 0 10px 24px rgba(20,108,255,.20); }

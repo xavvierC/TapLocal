@@ -1,13 +1,4 @@
-function isAuthenticated() {
-  // TODO: Read the Supabase session here when authentication is connected.
-  return false;
-}
-function signOut() {
-  // TODO: Call Supabase Auth here; do not simulate logout or redirect.
-  return new Promise(() => {});
-}
-function refreshAccountState() {
-  const authenticated = isAuthenticated();
+function refreshAccountState(authenticated = false) {
   const menu = document.querySelector('#account-menu');
   menu.querySelectorAll('[data-account-guest]').forEach(item => { item.hidden = authenticated; });
   menu.querySelectorAll('[data-account-member]').forEach(item => { item.hidden = !authenticated; });
@@ -32,12 +23,14 @@ function refreshAccountState() {
     if (restoreFocus) mobileTrigger.focus();
   }
   function setAccountOpen(open, focusIndex) {
-    if (open) { setMobileOpen(false); refreshAccountState(); }
+    if (open) setMobileOpen(false);
     menu.hidden = !open;
     trigger.setAttribute('aria-expanded', String(open));
     if (open && focusIndex !== undefined) items()[focusIndex]?.focus();
   }
   refreshAccountState();
+  isAuthenticated().then(refreshAccountState).catch(() => refreshAccountState(false));
+  window.addEventListener('taplocal-auth-change', event => refreshAccountState(event.detail.authenticated));
   trigger.addEventListener('click', () => setAccountOpen(menu.hidden, 0));
   trigger.addEventListener('keydown', event => {
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -60,7 +53,13 @@ function refreshAccountState() {
     if (!account.contains(event.target)) setAccountOpen(false);
   });
   menu.addEventListener('click', event => {
-    if (event.target.closest('[data-sign-out]')) void signOut();
+    if (event.target.closest('[data-sign-out]')) {
+      void signOut().catch(error => {
+        const status = document.querySelector('#account-auth-error');
+        status.textContent = error.message;
+        status.hidden = false;
+      });
+    }
     if (event.target.closest('[role="menuitem"]')) setAccountOpen(false);
   });
   mobileTrigger.addEventListener('click', () => setMobileOpen(mobileMenu.hidden));

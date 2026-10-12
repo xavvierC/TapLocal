@@ -1,8 +1,4 @@
-// Visual-only hook: TODO integrate Supabase Auth here in a later step.
-// No authentication, success simulation, navigation, or persistence occurs.
-function signIn(email, password) {
-  return new Promise(() => {});
-}
+void redirectAuthenticatedVisitor();
 
 const form = document.querySelector('#login-form');
 const email = document.querySelector('#email');
@@ -28,9 +24,11 @@ toggle.addEventListener('click', () => {
   toggle.setAttribute('aria-label', visible ? 'Ocultar senha' : 'Mostrar senha');
   toggle.setAttribute('aria-pressed', String(visible));
 });
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
   event.preventDefault();
   if (submit.disabled) return;
+  const error = document.querySelector('#form-error');
+  error.hidden = true;
   const emailOK = validate(email, validEmail());
   const passwordOK = validate(password, password.value.length > 0);
   if (!emailOK || !passwordOK) {
@@ -41,5 +39,16 @@ form.addEventListener('submit', event => {
   submit.setAttribute('aria-busy', 'true');
   submit.querySelector('.login-arrow').hidden = true;
   submit.querySelector('.login-spinner').hidden = false;
-  void signIn(email.value.trim(), password.value);
+  try {
+    const data = await signIn(email.value.trim(), password.value);
+    if (!data.session) throw new Error(AUTH_FAILURE);
+    window.location.assign('/area-do-cliente/');
+  } catch (failure) {
+    error.textContent = failure.message;
+    error.hidden = false;
+    submit.disabled = false;
+    submit.setAttribute('aria-busy', 'false');
+    submit.querySelector('.login-arrow').hidden = false;
+    submit.querySelector('.login-spinner').hidden = true;
+  }
 });

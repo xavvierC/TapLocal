@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Monte seu pedido TapLocal pelo WhatsApp.">
+  <title>Monte seu pedido — TapLocal</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/entrar/styles.css">
+  <link rel="stylesheet" href="/entrar/customer-forms.css">
+  <link rel="stylesheet" href="/pedido/styles.css">
+  <script src="/orders-config.js" defer></script>
+  <script src="/header/app.js" defer></script>
+  <script src="/pedido/app.js" defer></script>
+</head>
+<body class="login-page order-page">
+  <header class="header container">
+    <a class="brand" href="/" aria-label="TapLocal — início">
+      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
+        <image href="/assets/taplocal-logo.png" width="2172" height="724"/>
+      </svg>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions"><div class="account-control">
+        <button class="account-trigger" type="button" aria-label="Minha conta" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Z"/></svg><span class="account-label">Minha conta</span><svg class="account-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Minha conta" hidden>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/entrar/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6M3 12h12m-5-5 5 5-5 5"/></svg>Entrar</a>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/criar-conta/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a6 6 0 0 1 6-6h2a6 6 0 0 1 5 3m4-2v8m-4-4h8"/></svg>Criar conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <a role="menuitem" tabindex="-1" data-account-member href="/area-do-cliente/" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 2-.5 2-2 1-2-.5-2 4L4.5 10v3L3 14.5l2 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2-4-1.5-1.5v-3L21 8.5l-2-4-2 .5-2-1-.5-2Z"/><circle cx="12" cy="12" r="3"/></svg>Minha conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <button type="button" role="menuitem" tabindex="-1" data-account-member data-sign-out hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6m2-14 5 5-5 5m-6-5h15"/></svg>Sair</button>
+        </div>
+      </div>
+    <a class="button primary header-cta" href="/#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a></div>
+
+    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#produtos">Comprar agora →</a>
+    </nav>
+    <p id="account-auth-error" class="account-auth-error" role="alert" hidden></p>
+  </header>
+  <main class="login-main order-main">
+    <div class="order-layout">
+      <section id="orders-closed" class="login-card order-closed" aria-labelledby="closed-title">
+        <p class="eyebrow">PEDIDO</p><h1 id="closed-title">Monte seu pedido</h1>
+        <p class="login-subtitle">Envie os dados da sua empresa e os seus, e a gente combina o envio pelo WhatsApp.</p>
+        <p>Pedidos abrem em breve.</p><a href="/#produtos">Voltar para produtos</a>
+      </section>
+      <div id="orders-content" class="order-content" hidden>
+        <section class="login-card" aria-labelledby="order-title">
+          <p class="eyebrow">PEDIDO</p><h1 id="order-title">Monte seu pedido</h1>
+          <p class="login-subtitle">Envie os dados da sua empresa e os seus, e a gente combina o envio pelo WhatsApp.</p>
+          <form id="order-form" class="order-form" aria-labelledby="order-title" novalidate>
+            <fieldset id="product-choices"><legend>Escolha o produto</legend><label class="order-choice" for="product-google"><input type="radio" id="product-google" name="product" value="individual-google" aria-describedby="product-error" aria-invalid="false"><div><strong>Individual · 1 placa Google</strong><span>R$ 99,90</span></div></label>
+<label class="order-choice" for="product-instagram"><input type="radio" id="product-instagram" name="product" value="individual-instagram" aria-describedby="product-error" aria-invalid="false"><div><strong>Individual · 1 placa Instagram</strong><span>R$ 99,90</span></div></label>
+<label class="order-choice" for="product-duo"><input type="radio" id="product-duo" name="product" value="duo" aria-describedby="product-error" aria-invalid="false"><div><strong>Duo TapLocal · 1 Google + 1 Instagram</strong><span>R$ 179,90</span></div></label>
+<label class="order-choice" for="product-kit"><input type="radio" id="product-kit" name="product" value="kit" aria-describedby="product-error" aria-invalid="false"><div><strong>Kit Negócio · 4 placas à escolha</strong><span>R$ 299,90</span></div></label><p id="product-error" class="login-error" hidden>Escolha um produto.</p></fieldset>
+            <fieldset><legend>Quantidades</legend><p id="fixed-quantities"></p><div id="kit-quantities" hidden><div class="order-quantity"><span>Google</span><div class="order-stepper"><button type="button" data-step="google" data-delta="-1" aria-label="Diminuir Google">−</button><output id="google-count" aria-label="Quantidade de placas Google">0</output><button type="button" data-step="google" data-delta="1" aria-label="Aumentar Google">+</button></div></div>
+<div class="order-quantity"><span>Instagram</span><div class="order-stepper"><button type="button" data-step="instagram" data-delta="-1" aria-label="Diminuir Instagram">−</button><output id="instagram-count" aria-label="Quantidade de placas Instagram">0</output><button type="button" data-step="instagram" data-delta="1" aria-label="Aumentar Instagram">+</button></div></div><p id="kit-total" class="order-total" aria-live="polite">0/4 placas</p><p class="order-helper">Escolha um total de 4 placas para enviar o pedido.</p></div></fieldset>
+            <fieldset><legend>Sobre a sua empresa</legend>
+              <div class="login-field"><label for="company">Nome da empresa como aparece no Google</label><div class="login-input"><input id="company" type="text" placeholder="Ex.: Barbearia do Zé" autocomplete="organization" required aria-invalid="false" aria-describedby="company-help company-error"></div><p id="company-help" class="order-helper">Use o nome exato que aparece no Google Maps.</p><p id="company-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="locality">Cidade e bairro</label><div class="login-input"><input id="locality" type="text" placeholder="Ex.: São Paulo, Vila Mariana" required aria-invalid="false" aria-describedby="locality-help locality-error"></div><p id="locality-help" class="order-helper">Ajuda a encontrar a empresa certa.</p><p id="locality-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="instagram">@ do Instagram</label><div class="login-input"><input id="instagram" type="text" placeholder="@seuperfil" maxlength="31" autocapitalize="none" spellcheck="false" required aria-invalid="false" aria-describedby="instagram-error"></div><p id="instagram-error" class="login-error" hidden></p></div>
+            </fieldset>
+            <fieldset><legend>Dados para entrega</legend>
+              <div class="login-field"><label for="name">Nome completo</label><div class="login-input"><input id="name" type="text" autocomplete="name" required aria-invalid="false" aria-describedby="name-error"></div><p id="name-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="phone">WhatsApp</label><div class="login-input"><input id="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 99999-9999" maxlength="16" required aria-invalid="false" aria-describedby="phone-error"></div><p id="phone-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="cep">CEP</label><div class="login-input"><input id="cep" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000" maxlength="9" required aria-invalid="false" aria-describedby="cep-error"></div><p id="cep-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="street">Rua</label><div class="login-input"><input id="street" type="text" autocomplete="address-line1" required aria-invalid="false" aria-describedby="street-error"></div><p id="street-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="number">Número</label><div class="login-input"><input id="number" type="text" required aria-invalid="false" aria-describedby="number-error"></div><p id="number-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="complement">Complemento</label><div class="login-input"><input id="complement" type="text" autocomplete="address-line2" aria-invalid="false" aria-describedby="complement-error"></div><p id="complement-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="district">Bairro</label><div class="login-input"><input id="district" type="text" required aria-invalid="false" aria-describedby="district-error"></div><p id="district-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="city">Cidade</label><div class="login-input"><input id="city" type="text" autocomplete="address-level2" required aria-invalid="false" aria-describedby="city-error"></div><p id="city-error" class="login-error" hidden></p></div>
+              <div class="login-field"><label for="state">UF</label><select id="state" autocomplete="address-level1" required aria-invalid="false" aria-describedby="state-error"><option value="">Escolha o estado</option><option value="AC">AC — Acre</option><option value="AL">AL — Alagoas</option><option value="AP">AP — Amapá</option><option value="AM">AM — Amazonas</option><option value="BA">BA — Bahia</option><option value="CE">CE — Ceará</option><option value="DF">DF — Distrito Federal</option><option value="ES">ES — Espírito Santo</option><option value="GO">GO — Goiás</option><option value="MA">MA — Maranhão</option><option value="MT">MT — Mato Grosso</option><option value="MS">MS — Mato Grosso do Sul</option><option value="MG">MG — Minas Gerais</option><option value="PA">PA — Pará</option><option value="PB">PB — Paraíba</option><option value="PR">PR — Paraná</option><option value="PE">PE — Pernambuco</option><option value="PI">PI — Piauí</option><option value="RJ">RJ — Rio de Janeiro</option><option value="RN">RN — Rio Grande do Norte</option><option value="RS">RS — Rio Grande do Sul</option><option value="RO">RO — Rondônia</option><option value="RR">RR — Roraima</option><option value="SC">SC — Santa Catarina</option><option value="SP">SP — São Paulo</option><option value="SE">SE — Sergipe</option><option value="TO">TO — Tocantins</option></select><p id="state-error" class="login-error" hidden></p></div>
+            </fieldset>
+            <fieldset><legend>Observação</legend><label class="order-sr-only" for="observation">Observação (opcional)</label><textarea id="observation" maxlength="120" placeholder="Ex.: Entregar à tarde." aria-describedby="observation-counter"></textarea><p id="observation-counter" class="order-counter">0/120</p></fieldset>
+            <div class="account-terms"><div class="terms-row"><span class="terms-check"><input id="consent" type="checkbox" required aria-invalid="false" aria-describedby="consent-error"></span><label for="consent">Concordo que a TapLocal use estes dados apenas para montar e enviar o meu pedido.</label></div><p id="consent-error" class="login-error" hidden></p></div>
+          </form>
+        </section>
+        <aside class="login-card order-summary" aria-labelledby="summary-title">
+          <h2 id="summary-title">Resumo do pedido</h2><h3 id="summary-product">Escolha o produto</h3><p id="summary-quantities"></p><p id="summary-price" class="order-price">—</p>
+          <p>Frete: combinado no WhatsApp</p><p>Prazo: até 15 dias após a confirmação do pagamento</p>
+          <p id="order-errors" class="login-error" aria-live="polite" hidden></p>
+          <button id="order-submit" class="button primary login-submit" type="submit" form="order-form" aria-busy="false"><span>Enviar pedido pelo WhatsApp</span><svg class="login-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg><span class="login-spinner" aria-hidden="true" hidden></span></button>
+        </aside>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

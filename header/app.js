@@ -29,7 +29,9 @@ function refreshAccountState(authenticated = false) {
     if (open && focusIndex !== undefined) items()[focusIndex]?.focus();
   }
   refreshAccountState();
-  isAuthenticated().then(refreshAccountState).catch(() => refreshAccountState(false));
+  if (typeof isAuthenticated === 'function') {
+    isAuthenticated().then(refreshAccountState).catch(() => refreshAccountState(false));
+  }
   window.addEventListener('taplocal-auth-change', event => refreshAccountState(event.detail.authenticated));
   trigger.addEventListener('click', () => setAccountOpen(menu.hidden, 0));
   trigger.addEventListener('keydown', event => {

@@ -31,7 +31,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 .header {
   height: 76px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(195px,1fr) auto minmax(max-content,1fr);
   align-items: center;
   gap: 24px;
   position: relative;
@@ -64,6 +64,15 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 .arrow { font-size: 25px; line-height: 1; transition: transform 180ms ease; }
 .button:hover .arrow { transform: translateX(3px); }
 .header-cta { justify-self: end; height: 48px; font-size: 15px; padding-inline: 24px; }
+.header-actions { display: flex; justify-self: end; gap: 12px; align-items: center; }
+.customer-cta { color: var(--blue); background: #fff; border: 1px solid var(--blue); }
+.customer-cta:hover { background: #e8f1ff; }
+@media (min-width:1100px) and (max-width:1199px) { .header { gap: 12px; } }
+@media (max-width:1099px) {
+  .header-actions { margin-left: auto; }
+  .header-actions .customer-cta { display: none; }
+}
+@media (max-width:767px) { .header-actions { display: none; } }
 /* Scope the refinement to the Hero; the header CTA retains its existing styles. */
 .hero-actions .button {
   height: 60px;

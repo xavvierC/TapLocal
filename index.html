@@ -23,8 +23,8 @@
       window.addEventListener('pageshow', event => { if (event.persisted) reset(); });
     })();
   </script>
-  <link rel="stylesheet" href="styles.css?v=how-it-works-1">
-  <script src="app.js?v=how-it-works-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=reseller-model-1">
+  <script src="app.js?v=reseller-model-1" defer></script>
 </head>
 <body>
   <header class="header container">
@@ -140,7 +140,7 @@
       <div class="container">
         <div class="catalog-heading">
           <p class="eyebrow">PRODUTOS</p>
-          <h2 id="catalog-title">Você escolhe o destino.<br><span class="catalog-blue">A gente configura a <span class="highlight catalog-last-word">placa.<svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg></span></span></h2>
+          <h2 id="catalog-title"><span class="catalog-retail-title">Você escolhe o destino.<br><span class="catalog-blue">A gente configura a <span class="highlight catalog-last-word">placa.<svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg></span></span></span><span class="catalog-reseller-title" hidden>Para revender</span></h2>
           <p>Google, Instagram ou os dois. Você envia o seu link e recebe a placa pronta para o balcão.</p>
         </div>
         <div class="catalog-switcher catalog-tabs" role="tablist" aria-label="Tipo de compra">
@@ -202,10 +202,19 @@
           </div>
           <div id="reseller-panel" class="catalog-panel" role="tabpanel" aria-labelledby="reseller-tab" aria-hidden="true" inert>
             <article class="catalog-reseller">
-              <h3>Para revender</h3>
-              <p>Placas em branco, em maior quantidade. Você configura do seu jeito.</p>
-              <a class="catalog-buy" href="#" data-checkout="whatsappReseller">Falar sobre revenda <span aria-hidden="true">→</span></a>
+              <div class="catalog-image reseller-inventory" aria-hidden="true">
+                <svg class="reseller-plaque reseller-support reseller-google-back" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                <svg class="reseller-plaque reseller-support reseller-instagram-back" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                <svg class="reseller-plaque reseller-google-front" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                <svg class="reseller-plaque reseller-instagram-front" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+              </div>
+              <div class="reseller-copy">
+                <h3>Para revender</h3>
+                <p>Placas TapLocal prontas para revenda, sem configuração. Você configura cada uma com o link do seu cliente.</p>
+                <a class="catalog-buy" href="#" data-checkout="whatsappReseller">Falar sobre revenda <span aria-hidden="true">→</span></a>
+              </div>
             </article>
+            <div class="catalog-process reseller-process"><p>Depois do pedido:</p><ol><li><span aria-hidden="true">1</span>Escolha a quantidade</li><li><span aria-hidden="true">2</span>Receba sem configuração</li><li><span aria-hidden="true">3</span>Configure para seus clientes</li></ol></div>
           </div>
         </div>
       </div>

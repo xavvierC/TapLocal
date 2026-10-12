@@ -1,5 +1,3 @@
-// False by default; the home and this page use the same shared gate.
-const ORDERS_OPEN = window.TAPLOCAL_ORDERS_OPEN === true;
 const ORDER_PRODUCTS = {
   'individual-google': { name: 'Individual · 1 placa Google', price: 'R$ 99,90', google: 1, instagram: 0 },
   'individual-instagram': { name: 'Individual · 1 placa Instagram', price: 'R$ 99,90', google: 0, instagram: 1 },
@@ -8,7 +6,7 @@ const ORDER_PRODUCTS = {
 };
 
 (() => {
-  if (!ORDERS_OPEN) return;
+  if (window.TAPLOCAL_ORDERS_OPEN !== true) return;
   document.querySelector('#orders-closed').hidden = true;
   document.querySelector('#orders-content').hidden = false;
   const form = document.querySelector('#order-form');

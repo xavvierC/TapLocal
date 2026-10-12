@@ -1,0 +1,15 @@
+.customer-main { padding-block: 56px 80px; }
+.customer-main .eyebrow { margin-bottom: 18px; }
+.customer-main h1 { font-size: clamp(36px,4vw,56px); line-height: 1; letter-spacing: -.04em; margin: 0 0 20px; }
+.customer-intro { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0 0 36px; }
+.customer-card { padding: 28px; border: 1px solid var(--border); border-radius: 28px; background: #fff; box-shadow: 0 18px 48px rgba(25,60,115,.08); }
+.customer-card h2 { font-size: 24px; margin: 0 0 24px; letter-spacing: -.025em; }
+.customer-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin: 0; }
+.customer-summary dt,.customer-details dt { color: var(--muted); font-size: 14px; }
+.customer-summary dd { margin: 10px 0 0; font-size: 36px; font-weight: 750; color: var(--blue); }
+.customer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; margin-top: 24px; }
+.customer-empty { color: var(--muted); }
+.customer-details { margin: 0; }
+.customer-details div + div { margin-top: 20px; }
+.customer-details dd { margin: 8px 0 0; overflow-wrap: anywhere; }
+@media (max-width:767px) { .customer-main { padding-block: 36px 56px; } .customer-grid { grid-template-columns: 1fr; } .customer-card { padding: 24px; } }

@@ -7,27 +7,6 @@ const checkoutUrls = {
   whatsappReseller: '#'
 };
 
-const menuTrigger = document.querySelector('.menu-trigger');
-const mobileNav = document.querySelector('#mobile-nav');
-function setMenuOpen(isOpen, restoreFocus = false) {
-  mobileNav.hidden = !isOpen;
-  menuTrigger.setAttribute('aria-expanded', String(isOpen));
-  menuTrigger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-  if (restoreFocus) menuTrigger.focus();
-}
-menuTrigger.addEventListener('click', () => setMenuOpen(mobileNav.hidden));
-mobileNav.addEventListener('click', event => {
-  if (event.target.closest('a')) setMenuOpen(false);
-});
-document.addEventListener('click', event => {
-  if (!event.target.closest('.header')) setMenuOpen(false);
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && !mobileNav.hidden) setMenuOpen(false, true);
-});
-matchMedia('(min-width: 1100px)').addEventListener('change', event => {
-  if (event.matches) setMenuOpen(false);
-});
 let activeProduct = 'google';
 function showProduct(product) {
   if (product === activeProduct) return;

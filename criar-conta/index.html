@@ -8,23 +8,52 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/entrar/styles.css">
   <link rel="stylesheet" href="/entrar/customer-forms.css">
+  <script src="/header/app.js" defer></script>
   <script src="/entrar/customer-forms.js" defer></script>
   <script src="/criar-conta/app.js" defer></script>
 </head>
 <body class="login-page registration-page">
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
-      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false"><image href="/assets/taplocal-logo.png" width="2172" height="724"/></svg>
+      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
+        <image href="/assets/taplocal-logo.png" width="2172" height="724"/>
+      </svg>
     </a>
+
     <nav class="desktop-nav" aria-label="Navegação principal">
-      <a href="/#como-funciona">Como funciona</a><a href="/#produtos">Produtos</a><a href="/#beneficios">Benefícios</a><a href="/#depoimentos">Depoimentos</a><a href="/#faq">FAQ</a>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
     </nav>
-    <div class="header-actions"><a class="button header-cta customer-cta" href="/entrar/">Área do cliente</a>
+
+    <div class="header-actions"><div class="account-control">
+        <button class="account-trigger" type="button" aria-label="Minha conta" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Z"/></svg><span class="account-label">Minha conta</span><svg class="account-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Minha conta" hidden>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/entrar/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6M3 12h12m-5-5 5 5-5 5"/></svg>Entrar</a>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/criar-conta/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a6 6 0 0 1 6-6h2a6 6 0 0 1 5 3m4-2v8m-4-4h8"/></svg>Criar conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <a role="menuitem" tabindex="-1" data-account-member href="/area-do-cliente/" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 2-.5 2-2 1-2-.5-2 4L4.5 10v3L3 14.5l2 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2-4-1.5-1.5v-3L21 8.5l-2-4-2 .5-2-1-.5-2Z"/><circle cx="12" cy="12" r="3"/></svg>Minha conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <button type="button" role="menuitem" tabindex="-1" data-account-member data-sign-out hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6m2-14 5 5-5 5m-6-5h15"/></svg>Sair</button>
+        </div>
+      </div>
     <a class="button primary header-cta" href="/#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a></div>
-    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
+
+    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
     <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
-      <a href="/entrar/">Área do cliente</a>
-      <a href="/#como-funciona">Como funciona</a><a href="/#produtos">Produtos</a><a href="/#beneficios">Benefícios</a><a href="/#depoimentos">Depoimentos</a><a href="/#faq">FAQ</a><a href="/#produtos">Comprar agora →</a>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#produtos">Comprar agora →</a>
     </nav>
   </header>
   <main class="login-main">

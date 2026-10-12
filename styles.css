@@ -65,14 +65,34 @@ a:focus-visible, button:focus-visible { outline: 3px solid #146cff; outline-offs
 .button:hover .arrow { transform: translateX(3px); }
 .header-cta { justify-self: end; height: 48px; font-size: 15px; padding-inline: 24px; }
 .header-actions { display: flex; justify-self: end; gap: 12px; align-items: center; }
-.customer-cta { color: var(--blue); background: #fff; border: 1px solid var(--blue); }
-.customer-cta:hover { background: #e8f1ff; }
 @media (min-width:1100px) and (max-width:1199px) { .header { gap: 12px; } }
 @media (max-width:1099px) {
   .header-actions { margin-left: auto; }
-  .header-actions .customer-cta { display: none; }
 }
-@media (max-width:767px) { .header-actions { display: none; } }
+/* Shared account control: the public page and customer pages use identical markup. */
+.account-control { position: relative; }
+.account-trigger { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 44px; padding: 0 20px; border: 1px solid var(--blue); border-radius: 999px; color: var(--blue); background: #fff; font-size: 15px; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 14px rgba(20,108,255,.08); transition: background 150ms ease,box-shadow 150ms ease; }
+.account-trigger svg,.account-menu svg { width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: var(--blue); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.account-trigger .account-chevron { width: 12px; height: 12px; visibility: hidden; }
+.account-trigger[aria-expanded="true"] .account-chevron { visibility: visible; }
+.account-trigger:hover { background: #f3f8ff; border-color: var(--deep-blue); box-shadow: 0 6px 18px rgba(20,108,255,.14); }
+.account-trigger:focus-visible { outline: 3px solid rgba(20,108,255,.35); outline-offset: 2px; }
+.account-menu { position: absolute; top: calc(100% + 8px); right: 0; width: 220px; padding: 8px; border: 1px solid #e8f1ff; border-radius: 20px; background: #fff; box-shadow: 0 16px 40px rgba(20,108,255,.14); z-index: 20; animation: account-open 150ms ease; }
+.account-menu[hidden],.account-menu [hidden] { display: none; }
+.account-menu [role="menuitem"] { display: flex; width: 100%; height: 44px; align-items: center; gap: 12px; padding: 0 12px; border: 0; border-radius: 12px; background: transparent; color: #0b1220; font-size: 15px; font-weight: 500; text-align: left; }
+.account-menu [role="menuitem"][hidden] { display: none; }
+.account-menu [role="menuitem"]:hover { background: #f3f8ff; }
+.account-menu [role="menuitem"]:focus-visible { background: #e8f1ff; outline: 2px solid var(--blue); outline-offset: -2px; }
+.account-divider { height: 1px; margin: 6px 0; background: #e8f1ff; }
+@keyframes account-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width:1023px) {
+  .header-actions { display: flex; }
+  .account-control { order: 2; }
+  .account-trigger { width: 40px; height: 40px; padding: 0; border-radius: 50%; }
+  .account-label,.account-trigger .account-chevron { display: none; }
+  .header .menu-trigger { margin-left: 0; }
+}
+@media (prefers-reduced-motion:reduce) { .account-trigger { transition: none; } .account-menu { animation: none; transition: none; } }
 /* Scope the refinement to the Hero; the header CTA retains its existing styles. */
 .hero-actions .button {
   height: 60px;

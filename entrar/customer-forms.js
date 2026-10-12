@@ -57,20 +57,3 @@ document.querySelectorAll('.password-toggle').forEach(toggle => {
     toggle.setAttribute('aria-pressed', String(visible));
   });
 });
-
-// Keep the existing public header interactions on the new pages.
-const menuTrigger = document.querySelector('.menu-trigger');
-const mobileNav = document.querySelector('#mobile-nav');
-function setMenuOpen(open, restoreFocus = false) {
-  mobileNav.hidden = !open;
-  menuTrigger.setAttribute('aria-expanded', String(open));
-  menuTrigger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
-  if (restoreFocus) menuTrigger.focus();
-}
-menuTrigger.addEventListener('click', () => setMenuOpen(mobileNav.hidden));
-mobileNav.addEventListener('click', event => { if (event.target.closest('a')) setMenuOpen(false); });
-document.addEventListener('click', event => { if (!event.target.closest('.header')) setMenuOpen(false); });
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && !mobileNav.hidden) setMenuOpen(false, true);
-});
-matchMedia('(min-width:1100px)').addEventListener('change', event => { if (event.matches) setMenuOpen(false); });

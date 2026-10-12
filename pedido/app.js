@@ -123,20 +123,25 @@ const ORDER_PRODUCTS = {
   });
   function buildMessage() {
     const counts = quantities();
-    const complement = value('complement');
-    return [
-      'Olá! Quero fazer um pedido TapLocal.',
-      `Produto: ${ORDER_PRODUCTS[productKey].name}`,
-      `Quantidades: ${quantityText()}`,
-      `Empresa no Google: ${counts.google ? value('company') : 'não se aplica'}`,
-      `Cidade e bairro: ${value('locality')}`,
-      `Instagram: ${counts.instagram ? '@' + value('instagram').replace(/^@/, '') : 'não se aplica'}`,
-      `Nome: ${value('name')}`,
-      `WhatsApp: ${value('phone')}`,
-      `Endereço: ${value('street')}, ${value('number')}${complement ? ', ' + complement : ''} - ${value('district')} - ${value('city')}/${value('state')} - CEP ${value('cep')}`,
-      `Observação: ${value('observation') || 'nenhuma'}`,
-      'Frete: a combinar'
-    ].join('\n');
+    const clean = text => text.replace(/[*_~`]/g, '').replace(/\s*\r?\n\s*/g, ' ').trim();
+    const field = id => clean(value(id));
+    const complement = field('complement');
+    const observation = field('observation');
+    const blocks = ['*NOVO PEDIDO TAPLOCAL*', `*PRODUTO*\n${clean(ORDER_PRODUCTS[productKey].name)}`];
+    const plates = [];
+    if (counts.google > 0) plates.push(`Google: ${counts.google}`);
+    if (counts.instagram > 0) plates.push(`Instagram: ${counts.instagram}`);
+    if (plates.length) blocks.push('*PLACAS*\n' + plates.join('\n'));
+    const company = [];
+    if (counts.google > 0) company.push(`Nome no Google: ${field('company')}`);
+    company.push(`Cidade e bairro: ${field('locality')}`);
+    if (counts.instagram > 0) company.push(`Instagram: @${field('instagram').replace(/^@+/, '')}`);
+    if (company.length) blocks.push('*EMPRESA*\n' + company.join('\n'));
+    blocks.push(`*CLIENTE*\nNome: ${field('name')}\nWhatsApp: ${field('phone')}`);
+    blocks.push(`*ENTREGA*\n${field('street')}, ${field('number')}${complement ? ', ' + complement : ''} - ${field('district')}\n${field('city')}/${field('state')} · CEP ${field('cep')}`);
+    if (observation) blocks.push('*OBSERVAÇÃO*\n' + observation);
+    blocks.push('*FRETE*\nA combinar');
+    return blocks.join('\n\n');
   }
   form.addEventListener('submit', event => {
     event.preventDefault();

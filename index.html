@@ -27,6 +27,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
   <script src="/auth.js" defer></script>
   <script src="/header/app.js" defer></script>
+  <script src="/orders-config.js" defer></script>
   <script src="app.js?v=how-it-works-1" defer></script>
 </head>
 <body>
@@ -181,9 +182,9 @@
                     <button type="button" role="tab" aria-selected="true" tabindex="0" data-individual="google">Google</button>
                     <button type="button" role="tab" aria-selected="false" tabindex="-1" data-individual="instagram">Instagram</button>
                   </div></div>
-                  <p class="catalog-price">R$ 99,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <p class="catalog-price">R$ 99,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
                   <ul class="catalog-features"><li>1 placa, Google ou Instagram</li><li>NFC + QR Code</li><li>Configurada e pronta para usar</li></ul>
-                  <a class="catalog-buy" href="#" data-checkout="individualGoogle" aria-label="Quero esta placa — Individual">Quero esta placa <span aria-hidden="true">→</span></a>
+                  <a class="catalog-buy" data-checkout="individualGoogle" role="link" aria-disabled="true" tabindex="-1" aria-label="Em breve — Individual">Em breve <span aria-hidden="true" hidden>→</span></a>
                 </div>
               </article>
               <article class="catalog-card catalog-duo" aria-labelledby="duo-title">
@@ -194,9 +195,9 @@
                 <div class="catalog-details">
                   <h3 id="duo-title">Duo TapLocal</h3><p class="catalog-subtitle">Duas placas, dois destinos.</p>
                   <div class="catalog-info-row"><span class="catalog-saving">Economize R$ 19,90</span></div>
-                  <p class="catalog-price">R$ 179,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <p class="catalog-price">R$ 179,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
                   <ul class="catalog-features"><li>1 placa Google + 1 Instagram</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
-                  <a class="catalog-buy" href="#" data-checkout="duo" aria-label="Quero esta placa — Duo TapLocal">Quero esta placa <span aria-hidden="true">→</span></a>
+                  <a class="catalog-buy" data-checkout="duo" role="link" aria-disabled="true" tabindex="-1" aria-label="Em breve — Duo TapLocal">Em breve <span aria-hidden="true" hidden>→</span></a>
                 </div>
               </article>
               <article class="catalog-card catalog-kit" aria-labelledby="kit-title">
@@ -209,13 +210,13 @@
                 <div class="catalog-details">
                   <h3 id="kit-title">Kit Negócio</h3><p class="catalog-subtitle">Ideal para vários pontos de atendimento.</p>
                   <div class="catalog-info-row"><span class="catalog-saving">R$ 74,98 por placa</span></div>
-                  <p class="catalog-price">R$ 299,90</p><p class="catalog-shipping">frete calculado no checkout</p>
+                  <p class="catalog-price">R$ 299,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
                   <ul class="catalog-features"><li>4 placas à escolha</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
-                  <a class="catalog-buy" href="#" data-checkout="kit" aria-label="Quero esta placa — Kit Negócio">Quero esta placa <span aria-hidden="true">→</span></a>
+                  <a class="catalog-buy" data-checkout="kit" role="link" aria-disabled="true" tabindex="-1" aria-label="Em breve — Kit Negócio">Em breve <span aria-hidden="true" hidden>→</span></a>
                 </div>
               </article>
             </div>
-            <div class="catalog-process"><p>Depois do pedido:</p><ol><li><span aria-hidden="true">1</span>Você envia o seu link</li><li><span aria-hidden="true">2</span>A gente configura a placa</li><li><span aria-hidden="true">3</span>Ela chega pronta</li></ol></div>
+            <div class="catalog-process"><p>Depois do pedido:</p><ol><li><span aria-hidden="true">1</span>Você envia os dados da empresa</li><li><span aria-hidden="true">2</span>A gente configura a placa</li><li><span aria-hidden="true">3</span>Ela chega em até 15 dias</li></ol></div>
           </div>
           <div id="reseller-panel" class="catalog-panel" role="tabpanel" aria-labelledby="reseller-tab" aria-hidden="true" inert>
             <article class="catalog-reseller">

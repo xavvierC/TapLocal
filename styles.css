@@ -642,3 +642,7 @@ main:has(> .how-it-works) { overflow-x: clip; }
 }
 @media (prefers-reduced-motion:reduce) and (max-width:999px) { .catalog-duo:hover { transform: none; } }
 
+
+/* Closed orders retain the product button appearance without an action. */
+.catalog-buy[aria-disabled="true"] { cursor: not-allowed; pointer-events: none; }
+.catalog-buy[aria-disabled="true"] span[hidden] { display: none; }

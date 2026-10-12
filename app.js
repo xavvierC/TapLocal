@@ -1,11 +1,9 @@
-// TODO: Replace these placeholders with the real checkout and reseller contact URLs.
-const checkoutUrls = {
-  individualGoogle: '#',
-  individualInstagram: '#',
-  duo: '#',
-  kit: '#',
-  whatsappReseller: '#'
-};
+// TODO: Keep checkout routing here until a checkout is introduced.
+function buildOrderUrl(productKey) {
+  return '/pedido/?produto=' + encodeURIComponent(productKey);
+}
+// TODO: Replace only the reseller contact placeholder when approved.
+const checkoutUrls = { whatsappReseller: '#' };
 
 let activeProduct = 'google';
 function showProduct(product) {
@@ -140,8 +138,27 @@ if (howJourney && 'IntersectionObserver' in window && !matchMedia('(prefers-redu
 // Catalog state is independent of the Hero carousel.
 const catalog = document.querySelector('#produtos');
 if (catalog) {
+  const orderKey = link => link.dataset.checkout === 'individualGoogle' || link.dataset.checkout === 'individualInstagram'
+    ? 'individual-' + (catalog.querySelector('[data-individual][aria-selected="true"]')?.dataset.individual || 'google')
+    : link.dataset.checkout;
+  function updateOrderLink(link) {
+    const open = window.TAPLOCAL_ORDERS_OPEN === true;
+    link.setAttribute('aria-disabled', String(!open));
+    link.tabIndex = open ? 0 : -1;
+    if (open) link.href = buildOrderUrl(orderKey(link));
+    else link.removeAttribute('href');
+    link.firstChild.textContent = open ? 'Quero esta placa ' : 'Em breve ';
+    link.querySelector('span').hidden = !open;
+    const name = link.closest('article').querySelector('h3').textContent;
+    link.setAttribute('aria-label', (open ? 'Quero esta placa' : 'Em breve') + ' — ' + name);
+  }
   catalog.querySelectorAll('[data-checkout]').forEach(link => {
-    link.href = checkoutUrls[link.dataset.checkout];
+    if (link.dataset.checkout === 'whatsappReseller') { link.href = checkoutUrls.whatsappReseller; return; }
+    updateOrderLink(link);
+    link.addEventListener('click', event => {
+      updateOrderLink(link); // Read the Individual selector at activation time.
+      if (window.TAPLOCAL_ORDERS_OPEN !== true) event.preventDefault();
+    });
   });
   const tabs = [...catalog.querySelectorAll('.catalog-tabs [role="tab"]')];
   const panels = [...catalog.querySelectorAll('.catalog-panel')];
@@ -168,7 +185,7 @@ if (catalog) {
     });
     const link = catalog.querySelector('.catalog-individual [data-checkout]');
     link.dataset.checkout = product === 'google' ? 'individualGoogle' : 'individualInstagram';
-    link.href = checkoutUrls[link.dataset.checkout];
+    updateOrderLink(link);
   }
   function wireTabs(items, select) {
     items.forEach((tab, index) => {
@@ -183,6 +200,7 @@ if (catalog) {
     });
   }
   wireTabs(tabs, selectTab);
+  selectDestination(0); // Always start the Individual card on Google.
   wireTabs(destinations, selectDestination);
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const grid = catalog.querySelector('.catalog-grid');

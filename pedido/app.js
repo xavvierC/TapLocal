@@ -5,7 +5,10 @@ const ORDER_PRODUCTS = {
   kit: { name: 'Kit Negócio · 4 placas à escolha', price: 'R$ 299,90', google: 0, instagram: 0 }
 };
 
-(() => {
+(async () => {
+  try { if (!await requireCustomerSession()) return; }
+  catch { window.location.replace('/entrar/?next=/pedido/'); return; }
+  document.body.style.visibility = 'visible';
   if (window.TAPLOCAL_ORDERS_OPEN !== true) return;
   document.querySelector('#orders-closed').hidden = true;
   document.querySelector('#orders-content').hidden = false;
@@ -15,6 +18,8 @@ const ORDER_PRODUCTS = {
   const requested = new URLSearchParams(window.location.search).get('produto');
   let productKey = Object.hasOwn(ORDER_PRODUCTS, requested) ? requested : '';
   const kit = { google: 0, instagram: 0 };
+  const orderId = crypto.randomUUID();
+  let submitted = false;
   const quantities = () => productKey === 'kit' ? kit : ORDER_PRODUCTS[productKey] || { google: 0, instagram: 0 };
   const quantityText = () => `${quantities().google} Google, ${quantities().instagram} Instagram`;
   const value = id => document.getElementById(id).value.trim();
@@ -143,9 +148,9 @@ const ORDER_PRODUCTS = {
     blocks.push('*FRETE*\nA combinar');
     return blocks.join('\n\n');
   }
-  form.addEventListener('submit', event => {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (submit.disabled) return;
+    if (submit.disabled || submitted) return;
     const invalid = Object.keys(rules).filter(id => !validate(id));
     if (!productKey) {
       const radios = [...document.querySelectorAll('[name="product"]')];
@@ -160,18 +165,53 @@ const ORDER_PRODUCTS = {
       return;
     }
     status.hidden = true;
+    submit.disabled = true;
+    form.querySelectorAll('input,select,textarea,button').forEach(control => control.disabled = true);
     submit.setAttribute('aria-busy', 'true');
     submit.querySelector('.login-arrow').hidden = true;
     submit.querySelector('.login-spinner').hidden = false;
-    // A real anchor provides a new tab with noopener. Nothing is persisted.
+    // Save all rows atomically before opening the unchanged WhatsApp message.
+    try {
+      const counts = quantities();
+      await journeyRequest(client => client.rpc('create_customer_order', {payload: {
+        id: orderId, product: productKey, quantity: {google: counts.google, instagram: counts.instagram},
+        full_name: value('name'), whatsapp: value('phone'), company_name: counts.google ? value('company') : '',
+        locality: value('locality'), instagram_handle: counts.instagram ? value('instagram').replace(/^@/, '').toLowerCase() : '',
+        observation: value('observation'), cep: value('cep'), street: value('street'), number: value('number'),
+        complement: value('complement'), district: value('district'), city: value('city'), state: value('state')
+      }}));
+      submitted = true;
+    } catch {
+      status.textContent = 'Não foi possível salvar o pedido. Tente novamente. O WhatsApp não foi aberto.';
+      status.hidden = false;
+      form.querySelectorAll('input,select,textarea,button').forEach(control => control.disabled = false);
+      updateProduct();
+      submit.setAttribute('aria-busy', 'false');
+      submit.querySelector('.login-arrow').hidden = false;
+      submit.querySelector('.login-spinner').hidden = true;
+      return;
+    }
+    // A real anchor opens WhatsApp with noopener after the transaction succeeds.
     const link = document.createElement('a');
     link.href = 'https://wa.me/5511997112511?text=' + encodeURIComponent(buildMessage());
     link.target = '_blank';
     link.rel = 'noopener';
     document.body.append(link);
-    try { link.click(); }
+    try {
+      link.click();
+      const fallback = document.createElement('a');
+      fallback.href = link.href;
+      fallback.target = '_blank';
+      fallback.rel = 'noopener';
+      fallback.className = 'button secondary customer-action';
+      fallback.textContent = 'Continue seu pedido no WhatsApp';
+      document.querySelector('.order-summary').append(fallback);
+    }
     finally {
       link.remove();
+      status.textContent = 'Seu pedido foi salvo. Continue a conversa no WhatsApp.';
+      status.hidden = false;
+      submit.disabled = true;
       submit.setAttribute('aria-busy', 'false');
       submit.querySelector('.login-arrow').hidden = false;
       submit.querySelector('.login-spinner').hidden = true;

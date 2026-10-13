@@ -9,11 +9,14 @@
   <link rel="stylesheet" href="/entrar/styles.css">
   <link rel="stylesheet" href="/entrar/customer-forms.css">
   <link rel="stylesheet" href="/pedido/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
+  <script src="/auth.js" defer></script>
+  <script src="/customer-data.js" defer></script>
   <script src="/orders-config.js" defer></script>
   <script src="/header/app.js" defer></script>
   <script src="/pedido/app.js" defer></script>
 </head>
-<body class="login-page order-page">
+<body class="login-page order-page" style="visibility: hidden">
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
       <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">

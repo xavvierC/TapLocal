@@ -63,7 +63,7 @@ async function getRecoverySession() {
   return recoverySessionReceived ? session : null;
 }
 async function redirectAuthenticatedVisitor() {
-  try { if (await isAuthenticated()) window.location.replace('/area-do-cliente/'); }
+  try { if (await isAuthenticated()) window.location.replace(customerReturnPath()); }
   catch { /* The form can display a mapped error if initialization fails. */ }
 }
 window.taplocalSupabase?.auth.onAuthStateChange((event, session) => {
@@ -72,3 +72,14 @@ window.taplocalSupabase?.auth.onAuthStateChange((event, session) => {
   if (event === 'SIGNED_OUT') recoverySessionReceived = false;
   window.dispatchEvent(new CustomEvent('taplocal-auth-change', { detail: { authenticated: Boolean(session) } }));
 });
+
+function customerReturnPath() {
+  const next = new URLSearchParams(window.location.search).get('next');
+  if (!next || !next.startsWith('/') || next.startsWith('//') || next.includes('\\')) return '/area-do-cliente/';
+  try {
+    const destination = new URL(next, window.location.origin);
+    const allowed = ['/pedido/', '/area-do-cliente/', '/area-do-cliente/configuracoes/'];
+    return destination.origin === window.location.origin && allowed.includes(destination.pathname)
+      ? destination.pathname + destination.search + destination.hash : '/area-do-cliente/';
+  } catch { return '/area-do-cliente/'; }
+}

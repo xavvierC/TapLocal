@@ -42,7 +42,7 @@ form.addEventListener('submit', async event => {
   try {
     const data = await signIn(email.value.trim(), password.value);
     if (!data.session) throw new Error(AUTH_FAILURE);
-    window.location.assign('/area-do-cliente/');
+    window.location.assign(customerReturnPath());
   } catch (failure) {
     error.textContent = failure.message;
     error.hidden = false;

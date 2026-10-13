@@ -8,10 +8,11 @@
   <link rel="stylesheet" href="/area-do-cliente/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
   <script src="/auth.js" defer></script>
+  <script src="/customer-data.js" defer></script>
   <script src="/header/app.js" defer></script>
   <script src="/area-do-cliente/app.js" defer></script>
 </head>
-<body style="visibility: hidden">
+<body class="customer-page" style="visibility: hidden">
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
       <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
@@ -62,11 +63,13 @@
     <p class="customer-intro">Seus pedidos, placas e configurações em um só lugar.</p>
     <section class="customer-card" aria-labelledby="summary-title">
       <h2 id="summary-title">Resumo</h2>
-      <dl class="customer-summary"><div><dt>Pedidos</dt><dd>0</dd></div><div><dt>Placas</dt><dd>0</dd></div><div><dt>Links</dt><dd>0</dd></div></dl>
+      <dl class="customer-summary"><div><dt>Pedidos</dt><dd id="count-orders">—</dd></div><div><dt>Placas</dt><dd id="count-plates">—</dd></div><div><dt>Links</dt><dd id="count-links">—</dd></div></dl>
     </section>
+    <p id="customer-data-error" class="customer-error" role="alert" hidden></p>
+    <section class="customer-card customer-orders" aria-labelledby="orders-title"><h2 id="orders-title">Seus pedidos</h2><div id="customer-orders"></div></section>
     <div class="customer-grid">
-      <section class="customer-card" aria-labelledby="plates-title"><h2 id="plates-title">Suas placas</h2><p class="customer-empty">Nenhuma placa disponível.</p></section>
-      <section class="customer-card" aria-labelledby="support-title"><h2 id="support-title">Conta e suporte</h2><dl class="customer-details"><div><dt>Nome</dt><dd id="customer-name">—</dd></div><div><dt>E-mail</dt><dd id="customer-email">—</dd></div></dl></section>
+      <section class="customer-card" aria-labelledby="plates-title"><h2 id="plates-title">Suas placas</h2><div id="customer-plates"></div></section>
+      <section class="customer-card" aria-labelledby="support-title"><h2 id="support-title">Conta e suporte</h2><dl class="customer-details"><div><dt>Nome</dt><dd id="customer-name">—</dd></div><div><dt>E-mail</dt><dd id="customer-email">—</dd></div></dl><a class="button secondary customer-action" href="/area-do-cliente/configuracoes/">Abra suas configurações</a></section>
     </div>
   </main>
 </body>

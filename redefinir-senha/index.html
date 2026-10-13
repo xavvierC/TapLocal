@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Área do cliente TapLocal.">
+  <title>Nova senha — TapLocal</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/entrar/styles.css">
+  <link rel="stylesheet" href="/entrar/customer-forms.css">
+  <link rel="stylesheet" href="/redefinir-senha/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
+  <script src="/auth.js" defer></script>
+  <script src="/header/app.js" defer></script>
+  <script src="/entrar/customer-forms.js" defer></script>
+  <script src="/redefinir-senha/app.js" defer></script>
+</head>
+<body class="login-page password-reset-page">
+  <header class="header container">
+    <a class="brand" href="/" aria-label="TapLocal — início">
+      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
+        <image href="/assets/taplocal-logo.png" width="2172" height="724"/>
+      </svg>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions"><div class="account-control">
+        <button class="account-trigger" type="button" aria-label="Minha conta" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Z"/></svg><span class="account-label">Minha conta</span><svg class="account-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Minha conta" hidden>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/entrar/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6M3 12h12m-5-5 5 5-5 5"/></svg>Entrar</a>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/criar-conta/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a6 6 0 0 1 6-6h2a6 6 0 0 1 5 3m4-2v8m-4-4h8"/></svg>Criar conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <a role="menuitem" tabindex="-1" data-account-member href="/area-do-cliente/" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 2-.5 2-2 1-2-.5-2 4L4.5 10v3L3 14.5l2 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2-4-1.5-1.5v-3L21 8.5l-2-4-2 .5-2-1-.5-2Z"/><circle cx="12" cy="12" r="3"/></svg>Minha conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <button type="button" role="menuitem" tabindex="-1" data-account-member data-sign-out hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6m2-14 5 5-5 5m-6-5h15"/></svg>Sair</button>
+        </div>
+      </div>
+    <a class="button primary header-cta" href="/#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a></div>
+
+    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#produtos">Comprar agora →</a>
+    </nav>
+    <p id="account-auth-error" class="account-auth-error" role="alert" hidden></p>
+  </header>
+  <main class="login-main">
+    <div class="login-layout">
+      <section class="login-card" aria-labelledby="login-title">
+        <p class="eyebrow">ÁREA DO CLIENTE</p>
+        <h1 id="login-title">Nova senha</h1>
+        <p class="login-subtitle">Escolha uma senha nova para sua conta.</p>
+        <form id="login-form" aria-labelledby="login-title" novalidate hidden>
+          <div class="login-field">
+            <label for="password">Nova senha</label>
+            <div class="login-input">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></svg>
+              <input id="password" type="password" autocomplete="new-password" placeholder="Crie uma nova senha" aria-describedby="password-error" aria-invalid="false" required>
+              <button class="password-toggle" type="button" aria-label="Mostrar senha" aria-pressed="false" aria-controls="password"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m4 4 16 16"/></svg></button>
+            </div>
+            <p id="password-error" class="login-error" aria-live="polite" hidden>A senha precisa ter pelo menos 8 caracteres.</p>
+          </div>
+
+          <div class="login-field">
+            <label for="confirm-password">Confirmar nova senha</label>
+            <div class="login-input">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></svg>
+              <input id="confirm-password" type="password" autocomplete="new-password" placeholder="Digite novamente a nova senha" aria-describedby="confirm-password-error" aria-invalid="false" required>
+              <button class="password-toggle" type="button" aria-label="Mostrar confirmação de senha" aria-pressed="false" aria-controls="confirm-password"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="m4 4 16 16"/></svg></button>
+            </div>
+            <p id="confirm-password-error" class="login-error" aria-live="polite" hidden>Confirme sua senha.</p>
+          </div>
+
+          <p id="form-error" class="login-error account-form-error" role="alert" hidden></p>
+          <button class="button primary login-submit" type="submit" aria-busy="false"><span>Salvar nova senha</span><svg class="login-arrow" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg><span class="login-spinner" aria-hidden="true" hidden></span></button>
+        </form>
+        <div id="auth-result" class="auth-result" tabindex="-1" role="status" hidden><p></p><a href="/entrar/">Voltar para entrar</a></div>
+        <p class="login-create">Já tem uma conta? <a href="/entrar/">Entrar</a></p>
+        <div class="login-divider" aria-hidden="true"></div>
+      </section>
+      <aside class="login-benefits" aria-label="Sua área do cliente">
+        <div class="login-benefit"><span class="benefit-icon"><svg aria-hidden="true" viewBox="0 0 32 32"><path d="m16 3 12 7v13l-12 7-12-7V10Zm-12 7 12 7 12-7m-12 7v13M10 6l12 7"/></svg></span><div><h2>Acompanhe seus pedidos</h2><p>Veja o status e histórico das suas compras.</p></div></div>
+        <div class="login-benefit"><span class="benefit-icon"><svg aria-hidden="true" viewBox="0 0 32 32"><rect x="2" y="10" width="13" height="16" rx="3"/><path d="M6 14h4m-4 8h3m10-11a9 9 0 0 1 0 14m4-18a14 14 0 0 1 0 22m4-26a20 20 0 0 1 0 30"/></svg></span><div><h2>Gerencie suas placas</h2><p>Configure e personalize suas placas NFC + QR Code.</p></div></div>
+        <div class="login-benefit"><span class="benefit-icon"><svg aria-hidden="true" viewBox="0 0 32 32"><path d="m12 19-3 3a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 0m2 4 3-3a5 5 0 0 1 7 7l-6 6a5 5 0 0 1-7 0m-4-4 12-12"/></svg></span><div><h2>Altere seus links</h2><p>Atualize seus links sempre que quiser, de forma simples.</p></div></div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>

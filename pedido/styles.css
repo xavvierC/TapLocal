@@ -1,0 +1,44 @@
+/* Order intake: shared login surfaces and controls. Persistence uses Supabase. */
+.order-page [hidden] { display: none !important; }
+.order-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.order-main { align-items: start; }
+.order-layout { width: 100%; max-width: 1200px; }
+.order-layout > .login-card { width: min(100%,720px); margin-inline: auto; }
+.order-content { display: grid; grid-template-columns: minmax(0,3fr) minmax(0,2fr); gap: 28px; align-items: start; }
+.order-page .login-card h1 { font-size: clamp(38px,4vw,56px); }
+.order-form fieldset { min-width: 0; margin: 28px 0 0; padding: 0; border: 0; }
+.order-form legend { margin-bottom: 20px; padding: 0; font-size: 21px; font-weight: 750; letter-spacing: -.025em; }
+.order-form .login-field + .login-field { margin-top: 18px; }
+.order-form .login-input input { padding-inline: 16px; }
+.order-helper { margin: 8px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.order-page select,.order-page textarea { width: 100%; min-height: 58px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 13px; background: white; color: #0b1220; font: inherit; font-size: 16px; }
+.order-page textarea { min-height: 112px; resize: vertical; }
+.order-page select:focus-visible,.order-page textarea:focus-visible,.order-page input[type="radio"]:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.order-page select[aria-invalid="true"] { border-color: var(--error); }
+.order-counter { text-align: right; margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+.order-choice { display: flex; gap: 12px; align-items: center; padding: 14px; margin: 10px 0; border: 1px solid var(--border); border-radius: 14px; cursor: pointer; min-height: 64px; }
+.order-choice input { width: 20px; height: 20px; accent-color: var(--blue); flex-shrink: 0; }
+.order-choice:has(:checked) { border-color: var(--blue); background: #f3f8ff; }
+.order-choice strong { display: block; font-size: 15px; }
+.order-choice span { font-size: 14px; color: var(--muted); }
+.order-quantity { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0; }
+.order-stepper { display: flex; align-items: center; gap: 8px; }
+.order-stepper button { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 50%; color: var(--blue); background: white; font-size: 23px; }
+.order-stepper button:disabled { color: var(--muted); cursor: default; background: #f8fafc; }
+.order-stepper output { min-width: 24px; text-align: center; font-weight: 700; }
+.order-total { margin: 14px 0 0; color: var(--blue); font-size: 14px; font-weight: 600; }
+.order-total-invalid { color: var(--muted); }
+.order-summary h2 { margin: 0 0 24px; font-size: 26px; letter-spacing: -.035em; }
+.order-summary h3 { margin: 0 0 10px; font-size: 23px; line-height: 1.3; letter-spacing: -.025em; }
+.order-summary p { color: var(--muted); line-height: 1.5; }
+.order-summary .login-error { color: var(--error); }
+.order-summary .order-price { color: #0b1220; font-size: 38px; font-weight: 800; letter-spacing: -.04em; margin: 24px 0; }
+.order-summary .login-submit { margin-top: 24px; font-size: 15px; padding-left: 14px; padding-right: 44px; }
+.order-summary .login-submit:disabled { cursor: not-allowed; opacity: .65; }
+.order-summary .login-arrow { right: 16px; }
+.order-closed p { color: var(--muted); font-size: 20px; line-height: 1.5; }
+.order-closed a { display: inline-flex; align-items: center; min-height: 44px; color: var(--deep-blue); font-weight: 600; text-decoration: underline; }
+@media (min-width:1024px) and (max-width:1279px) { .order-content { gap: 20px; } .order-content .login-card { padding: 28px; } .order-summary .login-submit { font-size: 14px; } }
+@media (max-width:1023px) { .order-layout { max-width: 640px; } .order-content { grid-template-columns: minmax(0,1fr); gap: 20px; } }
+@media (max-width:600px) { .order-page .login-card { padding: 28px 20px; } .order-summary .login-submit { font-size: 14px; } }
+@media (prefers-reduced-motion:reduce) { .order-page * { transition-duration: 0ms !important; } }

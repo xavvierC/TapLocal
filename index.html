@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <meta name="description" content="Placas NFC + QR Code TapLocal para avaliações no Google e acesso ao Instagram com um toque.">
   <title>TapLocal — Mais avaliações e seguidores, com um toque.</title>
   <script>
@@ -24,38 +28,57 @@
     })();
   </script>
   <link rel="stylesheet" href="styles.css?v=how-it-works-1">
+  <link rel="stylesheet" href="/legal/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
+  <script src="/auth.js" defer></script>
+  <script src="/header/app.js" defer></script>
+  <script src="/orders-config.js" defer></script>
   <script src="app.js?v=how-it-works-1" defer></script>
 </head>
 <body>
   <header class="header container">
     <a class="brand" href="/" aria-label="TapLocal — início">
       <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
-        <image href="assets/taplocal-logo.png" width="2172" height="724"/>
+        <image href="/assets/taplocal-logo.png" width="2172" height="724"/>
       </svg>
     </a>
 
     <nav class="desktop-nav" aria-label="Navegação principal">
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#produtos">Produtos</a>
-      <a href="#beneficios">Benefícios</a>
-      <a href="#depoimentos">Depoimentos</a>
-      <a href="#faq">FAQ</a>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
     </nav>
 
-    <a class="button primary header-cta" href="#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a>
+    <div class="header-actions"><div class="account-control">
+        <button class="account-trigger" type="button" aria-label="Minha conta" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Z"/></svg><span class="account-label">Minha conta</span><svg class="account-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Minha conta" hidden>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/entrar/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6M3 12h12m-5-5 5 5-5 5"/></svg>Entrar</a>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/criar-conta/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a6 6 0 0 1 6-6h2a6 6 0 0 1 5 3m4-2v8m-4-4h8"/></svg>Criar conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <a role="menuitem" tabindex="-1" data-account-member href="/area-do-cliente/" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 2-.5 2-2 1-2-.5-2 4L4.5 10v3L3 14.5l2 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2-4-1.5-1.5v-3L21 8.5l-2-4-2 .5-2-1-.5-2Z"/><circle cx="12" cy="12" r="3"/></svg>Minha conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <button type="button" role="menuitem" tabindex="-1" data-account-member data-sign-out hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6m2-14 5 5-5 5m-6-5h15"/></svg>Sair</button>
+        </div>
+      </div>
+    <a class="button primary header-cta" href="/#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a></div>
 
     <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
       <span></span><span></span><span></span>
     </button>
 
     <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#produtos">Produtos</a>
-      <a href="#beneficios">Benefícios</a>
-      <a href="#depoimentos">Depoimentos</a>
-      <a href="#faq">FAQ</a>
-      <a href="#produtos">Comprar agora →</a>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#produtos">Comprar agora →</a>
     </nav>
+    <p id="account-auth-error" class="account-auth-error" role="alert" hidden></p>
   </header>
 
   <main>
@@ -135,6 +158,88 @@
         </div>
       </div>
     </section>
+    <!-- Produtos: real assets and checkout destinations configured in app.js. -->
+    <section id="produtos" class="catalog" aria-labelledby="catalog-title">
+      <div class="container">
+        <div class="catalog-heading">
+          <p class="eyebrow">PRODUTOS</p>
+          <h2 id="catalog-title">Você escolhe o destino.<br><span class="catalog-blue">A gente configura a <span class="highlight catalog-last-word">placa.<svg aria-hidden="true" viewBox="0 0 300 24"><path d="M5 20 Q145 -3 292 9"/></svg></span></span></h2>
+          <p>Google, Instagram ou os dois. Você envia o seu link e recebe a placa pronta para o balcão.</p>
+        </div>
+        <div class="catalog-switcher catalog-tabs" role="tablist" aria-label="Tipo de compra">
+          <span class="catalog-thumb" aria-hidden="true"></span>
+          <button type="button" role="tab" id="business-tab" aria-controls="business-panel" aria-selected="true" tabindex="0">Para o meu negócio</button>
+          <button type="button" role="tab" id="reseller-tab" aria-controls="reseller-panel" aria-selected="false" tabindex="-1">Para revender</button>
+        </div>
+        <div class="catalog-panels">
+          <div id="business-panel" class="catalog-panel is-active" role="tabpanel" aria-labelledby="business-tab">
+            <div class="catalog-grid">
+              <article class="catalog-card catalog-individual" aria-labelledby="individual-title">
+                <div class="catalog-image catalog-single" aria-hidden="true">
+                  <svg class="catalog-plaque is-selected" data-individual-art="google" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" data-individual-art="instagram" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="individual-title">Individual</h3>
+                  <p class="catalog-subtitle">Um destino, uma placa.</p>
+                  <div class="catalog-info-row"><div class="catalog-switcher catalog-destination" role="tablist" aria-label="Destino da placa Individual">
+                    <span class="catalog-thumb" aria-hidden="true"></span>
+                    <button type="button" role="tab" aria-selected="true" tabindex="0" data-individual="google">Google</button>
+                    <button type="button" role="tab" aria-selected="false" tabindex="-1" data-individual="instagram">Instagram</button>
+                  </div></div>
+                  <p class="catalog-price">R$ 99,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
+                  <ul class="catalog-features"><li>1 placa, Google ou Instagram</li><li>NFC + QR Code</li><li>Configurada e pronta para usar</li></ul>
+                  <a class="catalog-buy" data-checkout="individualGoogle" href="/pedido/?produto=individual-google" role="link" aria-label="Pedir Individual">Quero esta placa →</a>
+                </div>
+              </article>
+              <article class="catalog-card catalog-duo" aria-labelledby="duo-title">
+                <div class="catalog-image catalog-pair" aria-hidden="true">
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="duo-title">Duo TapLocal</h3><p class="catalog-subtitle">Duas placas, dois destinos.</p>
+                  <div class="catalog-info-row"><span class="catalog-saving">Economize R$ 19,90</span></div>
+                  <p class="catalog-price">R$ 179,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
+                  <ul class="catalog-features"><li>1 placa Google + 1 Instagram</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+                  <a class="catalog-buy" data-checkout="duo" href="/pedido/?produto=duo" role="link" aria-label="Pedir Duo TapLocal">Quero esta placa →</a>
+                </div>
+              </article>
+              <article class="catalog-card catalog-kit" aria-labelledby="kit-title">
+                <div class="catalog-image catalog-stack" aria-hidden="true">
+                  <span class="catalog-stack-count">4 placas</span>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/instagram-plaque-portrait.png" width="1254" height="1254"/></svg>
+                  <svg class="catalog-plaque" viewBox="160 40 1020 1190"><image href="assets/google-plaque-portrait.png" width="1254" height="1254"/></svg>
+                </div>
+                <div class="catalog-details">
+                  <h3 id="kit-title">Kit Negócio</h3><p class="catalog-subtitle">Ideal para vários pontos de atendimento.</p>
+                  <div class="catalog-info-row"><span class="catalog-saving">R$ 74,98 por placa</span></div>
+                  <p class="catalog-price">R$ 299,90</p><p class="catalog-shipping">frete combinado no WhatsApp</p>
+                  <ul class="catalog-features"><li>4 placas à escolha</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+                  <a class="catalog-buy" data-checkout="kit" href="/pedido/?produto=kit" role="link" aria-label="Pedir Kit Negócio">Quero esta placa →</a>
+                </div>
+              </article>
+            </div>
+            <div class="catalog-process"><p>Depois do pedido:</p><ol><li><span aria-hidden="true">1</span>Você envia os dados da empresa</li><li><span aria-hidden="true">2</span>A gente configura a placa</li><li><span aria-hidden="true">3</span>Ela chega em até 15 dias</li></ol></div>
+          </div>
+          <div id="reseller-panel" class="catalog-panel" role="tabpanel" aria-labelledby="reseller-tab" aria-hidden="true" inert>
+            <article class="catalog-reseller">
+              <img class="catalog-reseller-image" src="/assets/google-plaque-portrait.png" alt="Placa TapLocal sem configuração" loading="lazy" decoding="async">
+              <h3>Para revender</h3>
+              <p>Placas em branco, em maior quantidade. Você configura do seu jeito.</p>
+              <a class="catalog-buy" href="https://wa.me/5511997112511?text=Quero%20revender%20TapLocal" target="_blank" rel="noopener" data-checkout="whatsappReseller">Falar sobre revenda <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+  <footer class="legal-footer">
+    <a href="/politica-de-privacidade/">Política de privacidade</a>
+    <a href="/termos-de-uso/">Termos de uso</a>
+    <a href="mailto:xac.creativestudio@gmail.com">Contato</a>
+  </footer>
 </body>
 </html>
+

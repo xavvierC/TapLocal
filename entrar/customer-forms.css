@@ -1,0 +1,17 @@
+/* Shared additions for registration and recovery; login styles are untouched. */
+.registration-page .login-field + .login-field { margin-top: 18px; }
+.registration-page .login-subtitle { margin-bottom: 26px; }
+.registration-page #confirm-password { padding-right: 56px; }
+.account-terms { margin-top: 20px; }
+.terms-row { display: flex; align-items: flex-start; gap: 10px; }
+.terms-row .terms-check { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; }
+.terms-row input { width: 20px; height: 20px; margin: 0; accent-color: var(--blue); cursor: pointer; }
+.terms-row input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.terms-row input[aria-invalid="true"] { outline: 1px solid var(--error); outline-offset: 2px; }
+.terms-row label { color: var(--muted); font-size: 13px; line-height: 1.6; min-height: 44px; cursor: pointer; }
+.terms-row a { display: inline-flex; align-items: center; min-height: 44px; color: var(--deep-blue); text-decoration: underline; text-underline-offset: 3px; }
+.registration-page .login-submit,.recovery-page .login-submit { margin-top: 24px; }
+.account-form-error { margin-top: 20px; }
+.account-form-error[hidden] { display: none; }
+.recovery-page .login-card h1 { font-size: clamp(36px,3.3vw,46px); }
+@media (max-width:1023px) { .registration-page .login-main,.recovery-page .login-main { padding-inline: 16px; } }

@@ -1,24 +1,10 @@
-const menuTrigger = document.querySelector('.menu-trigger');
-const mobileNav = document.querySelector('#mobile-nav');
-function setMenuOpen(isOpen, restoreFocus = false) {
-  mobileNav.hidden = !isOpen;
-  menuTrigger.setAttribute('aria-expanded', String(isOpen));
-  menuTrigger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-  if (restoreFocus) menuTrigger.focus();
+// TODO: Keep checkout routing here until a checkout is introduced.
+function buildOrderUrl(productKey) {
+  return '/pedido/?produto=' + encodeURIComponent(productKey);
 }
-menuTrigger.addEventListener('click', () => setMenuOpen(mobileNav.hidden));
-mobileNav.addEventListener('click', event => {
-  if (event.target.closest('a')) setMenuOpen(false);
-});
-document.addEventListener('click', event => {
-  if (!event.target.closest('.header')) setMenuOpen(false);
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && !mobileNav.hidden) setMenuOpen(false, true);
-});
-matchMedia('(min-width: 1100px)').addEventListener('change', event => {
-  if (event.matches) setMenuOpen(false);
-});
+// TODO: Replace only the reseller contact placeholder when approved.
+const checkoutUrls = { whatsappReseller: 'https://wa.me/5511997112511?text=Quero%20revender%20TapLocal' };
+
 let activeProduct = 'google';
 function showProduct(product) {
   if (product === activeProduct) return;
@@ -147,4 +133,87 @@ if (howJourney && 'IntersectionObserver' in window && !matchMedia('(prefers-redu
     howReveal.disconnect();
   }, { threshold: .12 });
   howReveal.observe(howJourney);
+}
+
+// Catalog state is independent of the Hero carousel.
+const catalog = document.querySelector('#produtos');
+if (catalog) {
+  const orderKey = link => link.dataset.checkout === 'individualGoogle' || link.dataset.checkout === 'individualInstagram'
+    ? 'individual-' + (catalog.querySelector('[data-individual][aria-selected="true"]')?.dataset.individual || 'google')
+    : link.dataset.checkout;
+  function updateOrderLink(link) {
+    const key = orderKey(link);
+    const soldOut = window.taplocalSoldOut(key);
+    const open = window.TAPLOCAL_ORDERS_OPEN === true && !soldOut;
+    if (open) { link.removeAttribute('aria-disabled'); link.removeAttribute('tabindex'); link.href = buildOrderUrl(key); }
+    else { link.setAttribute('aria-disabled', 'true'); link.tabIndex = -1; link.removeAttribute('href'); }
+    if (link.firstChild) link.firstChild.textContent = soldOut ? 'Esgotado' : open ? 'Quero esta placa →' : 'Em breve';
+    const arrow = link.querySelector('span'); if (arrow) arrow.hidden = !open;
+    const name = link.closest('article').querySelector('h3').textContent;
+    link.setAttribute('aria-label', soldOut ? 'Esgotado — ' + name : open ? 'Pedir ' + name : 'Em breve — ' + name);
+  }
+  catalog.querySelectorAll('[data-checkout]').forEach(link => {
+    if (link.dataset.checkout === 'whatsappReseller') { link.href = checkoutUrls.whatsappReseller; return; }
+    updateOrderLink(link);
+    link.addEventListener('click', event => {
+      updateOrderLink(link); // Read the Individual selector at activation time.
+      if (window.TAPLOCAL_ORDERS_OPEN !== true || window.taplocalSoldOut(orderKey(link))) event.preventDefault();
+    });
+  });
+  window.loadTaplocalStock?.().then(() => {
+    catalog.querySelectorAll('[data-checkout]').forEach(link => {
+      if (link.dataset.checkout !== 'whatsappReseller') updateOrderLink(link);
+    });
+  });
+  const tabs = [...catalog.querySelectorAll('.catalog-tabs [role="tab"]')];
+  const panels = [...catalog.querySelectorAll('.catalog-panel')];
+  const destinations = [...catalog.querySelectorAll('[data-individual]')];
+  function selectTab(index) {
+    tabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+      panels[i].classList.toggle('is-active', i === index);
+      panels[i].setAttribute('aria-hidden', String(i !== index));
+      panels[i].inert = i !== index;
+    });
+    catalog.querySelector('.catalog-tabs').dataset.second = String(index === 1);
+  }
+  function selectDestination(index) {
+    const product = destinations[index].dataset.individual;
+    destinations.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+    });
+    catalog.querySelector('.catalog-destination').dataset.second = String(index === 1);
+    catalog.querySelectorAll('[data-individual-art]').forEach(art => {
+      art.classList.toggle('is-selected', art.dataset.individualArt === product);
+    });
+    const link = catalog.querySelector('.catalog-individual [data-checkout]');
+    link.dataset.checkout = product === 'google' ? 'individualGoogle' : 'individualInstagram';
+    updateOrderLink(link);
+  }
+  function wireTabs(items, select) {
+    items.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(index));
+      tab.addEventListener('keydown', event => {
+        const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+        if (!keys.includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length;
+        select(next); items[next].focus();
+      });
+    });
+  }
+  wireTabs(tabs, selectTab);
+  selectDestination(0); // Always start the Individual card on Google.
+  wireTabs(destinations, selectDestination);
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const grid = catalog.querySelector('.catalog-grid');
+    grid.classList.add('is-pending');
+    const reveal = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      grid.classList.replace('is-pending', 'is-revealed'); reveal.disconnect();
+    }, { threshold: .05 });
+    reveal.observe(grid);
+  }
 }

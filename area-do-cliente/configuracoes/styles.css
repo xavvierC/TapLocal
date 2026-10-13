@@ -1,0 +1,18 @@
+.settings-main { max-width:900px; }
+.settings-main > .customer-action { margin:0 0 24px; }
+.settings-main .customer-card + .customer-card { margin-top:24px; }
+.settings-page .login-input input { padding-inline:16px; background:var(--customer-surface); color:var(--customer-text); }
+.settings-page .login-field + .login-field { margin-top:20px; }
+.settings-page select { width:100%; min-height:58px; padding:14px 16px; border:1px solid var(--border); border-radius:13px; font:inherit; background:var(--customer-surface); color:var(--customer-text); }
+.settings-page :is(input,select)[aria-invalid="true"] { border-color:var(--error); }
+.settings-page .login-error { color:var(--error); }
+.settings-page .customer-action:disabled { opacity:.65; cursor:wait; }
+.settings-page .settings-result { line-height:1.5; overflow-wrap:anywhere; }
+.settings-page .settings-result.error { color:var(--error); }
+.settings-page p { line-height:1.6; }
+.settings-page a:not(.button) { color:var(--blue); }
+.settings-page #placas { scroll-margin-top:96px; }
+.settings-page #deletion-form { margin-top:28px; }
+.settings-page form { min-width:0; }
+.settings-page :is(input,select,button,a):focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
+@media(prefers-reduced-motion:reduce) { .settings-page * { transition-duration:0ms!important; } }

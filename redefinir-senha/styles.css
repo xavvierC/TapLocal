@@ -1,0 +1,3 @@
+/* Reuse the login card, inputs, benefits and button without changing their design. */
+.password-reset-page #confirm-password { padding-right: 56px; }
+.password-reset-page .login-submit { margin-top: 24px; }

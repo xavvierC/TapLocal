@@ -14,7 +14,7 @@
 .customer-details dd { margin: 8px 0 0; overflow-wrap: anywhere; }
 @media (max-width:767px) { .customer-main { padding-block: 36px 56px; } .customer-grid { grid-template-columns: 1fr; } .customer-card { padding: 24px; } }
 /* Customer journey: scoped to customer pages. */
-.customer-page { --customer-surface:#fff; --customer-text:#0b1220; --customer-background:#fff; --error:#d92d20; color:var(--customer-text); background:var(--customer-background); }
+.customer-page { --customer-surface:#fff; --customer-text:#0b1220; --customer-background:#f6f9ff; --muted:#475467; --border:#dbe5f3; --blue:#146cff; --error:#b42318; color-scheme:light; color:var(--customer-text); background:var(--customer-background); }
 .customer-page [hidden] { display:none !important; }
 .customer-page .customer-card { background:var(--customer-surface); }
 .customer-orders { margin-top:24px; }
@@ -22,11 +22,9 @@
 .customer-list-item + .customer-list-item { border-top:1px solid var(--border); margin-top:24px; padding-top:24px; }
 .customer-list-item h3 { font-size:19px; margin:0 0 12px; }
 .customer-list-item p,.customer-list-item li { line-height:1.6; }
-.customer-action { min-height:44px; margin-top:16px; text-align:center; white-space:normal; }
+.customer-action { display:flex; justify-content:center; width:100%; min-height:48px; margin-top:16px; border-radius:999px; font-weight:600; text-align:center; white-space:normal; }
 .customer-error { color:var(--error); line-height:1.5; }
 @media(max-width:600px) { .customer-page .container { width:calc(100% - 32px); } .customer-page .customer-card { padding:24px 18px; } .customer-summary { gap:12px; } }
-:root[data-theme="dark"] .customer-page { --customer-surface:#121d30; --customer-text:#f3f6fc; --customer-background:#0b1220; --muted:#c2cddd; --border:#33445e; --blue:#8bb9ff; --error:#ff9d94; }
-@media(prefers-color-scheme:dark) { :root:not([data-theme="light"]) .customer-page { --customer-surface:#121d30; --customer-text:#f3f6fc; --customer-background:#0b1220; --muted:#c2cddd; --border:#33445e; --blue:#8bb9ff; --error:#ff9d94; } }
 .customer-page :is(.primary,.secondary) { --blue:#146cff; }
 .customer-page .desktop-nav a { color:var(--customer-text); }
 .customer-page :is(button,a):focus-visible { outline:3px solid var(--blue); outline-offset:3px; }

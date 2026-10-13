@@ -6,7 +6,7 @@ function customerNode(tag, text, className) {
  const node=document.createElement(tag); if(text) node.textContent=text; if(className) node.className=className; return node;
 }
 function customerLink(text, href) {
- const link=customerNode('a',text,'button secondary customer-action'); link.href=href; return link;
+ const link=customerNode('a',text,'button primary customer-action'); link.href=href; return link;
 }
 function emptyCustomerState(container, message) {
  container.append(customerNode('p',message,'customer-empty'),customerLink('Monte seu pedido','/pedido/'));

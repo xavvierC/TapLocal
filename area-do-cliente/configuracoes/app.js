@@ -109,8 +109,8 @@ function setupSettingsMask(id,max,format) {
   form.prepend(heading,status); plates.append(form);
   document.getElementById(fieldId).value=plate.configured_url || '';
   setupSettingsForm(form.id,{[fieldId]:()=>validPlateUrl(settingsValue(fieldId),plate.type)?'':'Informe um link HTTPS válido para este tipo de placa.'},async()=>{
-   await journeyRequest(client=>client.from('plates').update({configured_url:new URL(settingsValue(fieldId)).href}).eq('id',plate.id).eq('user_id',uid).select('id').single());
-   status.textContent='Configurada';
+   const saved=await journeyRequest(client=>client.from('plates').update({configured_url:new URL(settingsValue(fieldId)).href}).eq('id',plate.id).eq('user_id',uid).select('id,status').single());
+   status.textContent=saved.status==='configurada'?'Configurada':'Aguardando configuração';
   },'O link foi salvo.');
  });
  document.getElementById('download-data').addEventListener('click',async event=>{

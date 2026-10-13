@@ -3,7 +3,7 @@ function buildOrderUrl(productKey) {
   return '/pedido/?produto=' + encodeURIComponent(productKey);
 }
 // TODO: Replace only the reseller contact placeholder when approved.
-const checkoutUrls = { whatsappReseller: '#' };
+const checkoutUrls = { whatsappReseller: 'https://wa.me/5511997112511?text=Quero%20revender%20TapLocal' };
 
 let activeProduct = 'google';
 function showProduct(product) {
@@ -143,14 +143,12 @@ if (catalog) {
     : link.dataset.checkout;
   function updateOrderLink(link) {
     const open = window.TAPLOCAL_ORDERS_OPEN === true;
-    link.setAttribute('aria-disabled', String(!open));
-    link.tabIndex = open ? 0 : -1;
-    if (open) link.href = buildOrderUrl(orderKey(link));
-    else link.removeAttribute('href');
-    link.firstChild.textContent = open ? 'Quero esta placa ' : 'Em breve ';
-    link.querySelector('span').hidden = !open;
+    if (open) { link.removeAttribute('aria-disabled'); link.removeAttribute('tabindex'); link.href = buildOrderUrl(orderKey(link)); }
+    else { link.setAttribute('aria-disabled', 'true'); link.tabIndex = -1; link.removeAttribute('href'); }
+    if (link.firstChild) link.firstChild.textContent = open ? 'Quero esta placa →' : 'Em breve';
+    const arrow = link.querySelector('span'); if (arrow) arrow.hidden = !open;
     const name = link.closest('article').querySelector('h3').textContent;
-    link.setAttribute('aria-label', (open ? 'Quero esta placa' : 'Em breve') + ' — ' + name);
+    link.setAttribute('aria-label', open ? 'Pedir ' + name : 'Em breve — ' + name);
   }
   catalog.querySelectorAll('[data-checkout]').forEach(link => {
     if (link.dataset.checkout === 'whatsappReseller') { link.href = checkoutUrls.whatsappReseller; return; }

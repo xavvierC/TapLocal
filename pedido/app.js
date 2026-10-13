@@ -7,7 +7,7 @@ const ORDER_PRODUCTS = {
 
 (async () => {
   try { if (!await requireCustomerSession()) return; }
-  catch { window.location.replace('/entrar/?next=/pedido/'); return; }
+  catch { window.location.replace('/entrar/?next=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash)); return; }
   document.body.style.visibility = 'visible';
   if (window.TAPLOCAL_ORDERS_OPEN !== true) return;
   document.querySelector('#orders-closed').hidden = true;

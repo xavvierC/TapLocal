@@ -97,7 +97,7 @@
 .product-gallery img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 .product-how { padding-top: clamp(76px, 10vw, 132px); }
@@ -203,7 +203,7 @@
   .product-hero-media img { max-height: 430px; }
   .product-media, .product-gallery, .product-how, .product-choices { padding-top: 72px; }
   .product-gallery { grid-template-columns: 1fr; gap: 28px; }
-  .product-gallery img { aspect-ratio: 4 / 3; }
+  .product-gallery img { aspect-ratio: 3 / 4; }
   .product-how ol { grid-template-columns: 1fr; gap: 12px; }
   .product-how li { padding: 18px; }
   .product-choice-grid { margin-top: 22px; }

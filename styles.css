@@ -624,10 +624,14 @@ main:has(> .how-it-works) { overflow-x: clip; }
 }
 @media (max-width:600px) {
   .catalog { scroll-margin-top: 88px; }
+  .catalog > .container { padding-inline: 16px 48px; }
   .catalog-heading > p:last-child { font-size: 17px; }
   .catalog-tabs [role="tab"] { font-size: 13px; padding-inline: 4px; }
   .catalog-card { padding: 20px; }
-  .catalog-individual, .catalog-kit { padding: 16px; gap: 12px; grid-template-columns: 37% minmax(0,1fr); }
+  .catalog-individual, .catalog-kit { padding: 16px; gap: 0; grid-template-columns: 1fr; }
+  .catalog-individual .catalog-image, .catalog-kit .catalog-image { width: 100%; margin: 0 0 20px; aspect-ratio: 4/3; }
+  /* Keep the existing trio transforms inside the full-width stage with 16px clearance. */
+  .catalog-stack { --kit-plaque-width: min(46%,calc((100% - 32px)/2.65)); }
   .catalog-individual h3, .catalog-kit h3 { font-size: 22px; }
   .catalog-individual .catalog-subtitle, .catalog-kit .catalog-subtitle { font-size: 14px; }
   .catalog-individual .catalog-features, .catalog-kit .catalog-features { font-size: 13px; }

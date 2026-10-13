@@ -142,20 +142,27 @@ if (catalog) {
     ? 'individual-' + (catalog.querySelector('[data-individual][aria-selected="true"]')?.dataset.individual || 'google')
     : link.dataset.checkout;
   function updateOrderLink(link) {
-    const open = window.TAPLOCAL_ORDERS_OPEN === true;
-    if (open) { link.removeAttribute('aria-disabled'); link.removeAttribute('tabindex'); link.href = buildOrderUrl(orderKey(link)); }
+    const key = orderKey(link);
+    const soldOut = window.taplocalSoldOut(key);
+    const open = window.TAPLOCAL_ORDERS_OPEN === true && !soldOut;
+    if (open) { link.removeAttribute('aria-disabled'); link.removeAttribute('tabindex'); link.href = buildOrderUrl(key); }
     else { link.setAttribute('aria-disabled', 'true'); link.tabIndex = -1; link.removeAttribute('href'); }
-    if (link.firstChild) link.firstChild.textContent = open ? 'Quero esta placa →' : 'Em breve';
+    if (link.firstChild) link.firstChild.textContent = soldOut ? 'Esgotado' : open ? 'Quero esta placa →' : 'Em breve';
     const arrow = link.querySelector('span'); if (arrow) arrow.hidden = !open;
     const name = link.closest('article').querySelector('h3').textContent;
-    link.setAttribute('aria-label', open ? 'Pedir ' + name : 'Em breve — ' + name);
+    link.setAttribute('aria-label', soldOut ? 'Esgotado — ' + name : open ? 'Pedir ' + name : 'Em breve — ' + name);
   }
   catalog.querySelectorAll('[data-checkout]').forEach(link => {
     if (link.dataset.checkout === 'whatsappReseller') { link.href = checkoutUrls.whatsappReseller; return; }
     updateOrderLink(link);
     link.addEventListener('click', event => {
       updateOrderLink(link); // Read the Individual selector at activation time.
-      if (window.TAPLOCAL_ORDERS_OPEN !== true) event.preventDefault();
+      if (window.TAPLOCAL_ORDERS_OPEN !== true || window.taplocalSoldOut(orderKey(link))) event.preventDefault();
+    });
+  });
+  window.loadTaplocalStock?.().then(() => {
+    catalog.querySelectorAll('[data-checkout]').forEach(link => {
+      if (link.dataset.checkout !== 'whatsappReseller') updateOrderLink(link);
     });
   });
   const tabs = [...catalog.querySelectorAll('.catalog-tabs [role="tab"]')];

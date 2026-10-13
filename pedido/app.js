@@ -10,6 +10,7 @@ const ORDER_PRODUCTS = {
   catch { window.location.replace('/entrar/?next=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash)); return; }
   document.body.style.visibility = 'visible';
   if (window.TAPLOCAL_ORDERS_OPEN !== true) return;
+  await window.loadTaplocalStock?.();
   document.querySelector('#orders-closed').hidden = true;
   document.querySelector('#orders-content').hidden = false;
   const form = document.querySelector('#order-form');
@@ -18,6 +19,7 @@ const ORDER_PRODUCTS = {
   const requested = new URLSearchParams(window.location.search).get('produto');
   let productKey = Object.hasOwn(ORDER_PRODUCTS, requested) ? requested : '';
   const kit = { google: 0, instagram: 0 };
+  const cap = type => Math.min(4, window.TAPLOCAL_STOCK[type] ?? 4);
   const orderId = crypto.randomUUID();
   let submitted = false;
   const quantities = () => productKey === 'kit' ? kit : ORDER_PRODUCTS[productKey] || { google: 0, instagram: 0 };
@@ -66,7 +68,7 @@ const ORDER_PRODUCTS = {
       if (!counts[type] || field.getAttribute('aria-invalid') === 'true') validate(id);
       document.querySelector(`#${type}-count`).textContent = kit[type];
       document.querySelector(`[data-step="${type}"][data-delta="-1"]`).disabled = kit[type] === 0;
-      document.querySelector(`[data-step="${type}"][data-delta="1"]`).disabled = kit[type] === 4;
+      document.querySelector(`[data-step="${type}"][data-delta="1"]`).disabled = kit[type] >= cap(type);
     });
     const total = kit.google + kit.instagram;
     document.querySelector('#kit-total').textContent = `${total}/4 placas`;
@@ -78,6 +80,14 @@ const ORDER_PRODUCTS = {
       radio.setAttribute('aria-invalid', 'false');
     });
   }
+  document.querySelectorAll('[name="product"]').forEach(radio => {
+    const soldOut = window.taplocalSoldOut(radio.value);
+    radio.disabled = soldOut;
+    const label = radio.closest('label');
+    label.style.opacity = soldOut ? '.5' : '';
+    if (soldOut) label.querySelector('span').textContent = 'Esgotado';
+  });
+  if (productKey && window.taplocalSoldOut(productKey)) productKey = '';
   document.querySelector('#product-choices').hidden = Boolean(productKey);
   document.querySelectorAll('[name="product"]').forEach(radio => radio.addEventListener('change', () => {
     productKey = radio.value;
@@ -85,7 +95,7 @@ const ORDER_PRODUCTS = {
   }));
   document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => {
     const type = button.dataset.step;
-    kit[type] = Math.max(0, Math.min(4, kit[type] + Number(button.dataset.delta)));
+    kit[type] = Math.max(0, Math.min(cap(type), kit[type] + Number(button.dataset.delta)));
     updateProduct();
   }));
   Object.keys(rules).forEach(id => {

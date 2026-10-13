@@ -3,7 +3,7 @@ function buildOrderUrl(productKey) {
   return '/pedido/?produto=' + encodeURIComponent(productKey);
 }
 // TODO: Replace only the reseller contact placeholder when approved.
-const checkoutUrls = { whatsappReseller: '#' };
+const checkoutUrls = { whatsappReseller: 'https://wa.me/5511997112511?text=Quero%20revender%20TapLocal' };
 
 let activeProduct = 'google';
 function showProduct(product) {
@@ -142,22 +142,29 @@ if (catalog) {
     ? 'individual-' + (catalog.querySelector('[data-individual][aria-selected="true"]')?.dataset.individual || 'google')
     : link.dataset.checkout;
   function updateOrderLink(link) {
-    const open = window.TAPLOCAL_ORDERS_OPEN === true;
+    const key = orderKey(link);
+    const soldOut = window.taplocalSoldOut(key);
+    const open = window.TAPLOCAL_ORDERS_OPEN === true && !soldOut;
     link.setAttribute('aria-disabled', String(!open));
     link.tabIndex = open ? 0 : -1;
-    if (open) link.href = buildOrderUrl(orderKey(link));
+    if (open) link.href = buildOrderUrl(key);
     else link.removeAttribute('href');
-    link.firstChild.textContent = open ? 'Quero esta placa ' : 'Em breve ';
+    link.firstChild.textContent = soldOut ? 'Esgotado ' : open ? 'Quero esta placa ' : 'Em breve ';
     link.querySelector('span').hidden = !open;
     const name = link.closest('article').querySelector('h3').textContent;
-    link.setAttribute('aria-label', (open ? 'Quero esta placa' : 'Em breve') + ' — ' + name);
+    link.setAttribute('aria-label', (soldOut ? 'Esgotado' : open ? 'Quero esta placa' : 'Em breve') + ' — ' + name);
   }
   catalog.querySelectorAll('[data-checkout]').forEach(link => {
     if (link.dataset.checkout === 'whatsappReseller') { link.href = checkoutUrls.whatsappReseller; return; }
     updateOrderLink(link);
     link.addEventListener('click', event => {
       updateOrderLink(link); // Read the Individual selector at activation time.
-      if (window.TAPLOCAL_ORDERS_OPEN !== true) event.preventDefault();
+      if (window.TAPLOCAL_ORDERS_OPEN !== true || window.taplocalSoldOut(orderKey(link))) event.preventDefault();
+    });
+  });
+  window.loadTaplocalStock?.().then(() => {
+    catalog.querySelectorAll('[data-checkout]').forEach(link => {
+      if (link.dataset.checkout !== 'whatsappReseller') updateOrderLink(link);
     });
   });
   const tabs = [...catalog.querySelectorAll('.catalog-tabs [role="tab"]')];

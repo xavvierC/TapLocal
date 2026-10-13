@@ -3,6 +3,7 @@ void redirectAuthenticatedVisitor();
 const form = document.querySelector('#login-form');
 const email = document.querySelector('#email');
 const password = document.querySelector('#password');
+const rememberMe = document.querySelector('#remember-me');
 const toggle = document.querySelector('.password-toggle');
 const submit = document.querySelector('.login-submit');
 const validEmail = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
@@ -40,6 +41,7 @@ form.addEventListener('submit', async event => {
   submit.querySelector('.login-arrow').hidden = true;
   submit.querySelector('.login-spinner').hidden = false;
   try {
+    try { localStorage.setItem('taplocal-remember', rememberMe.checked ? '1' : '0'); } catch {}
     const data = await signIn(email.value.trim(), password.value);
     if (!data.session) throw new Error(AUTH_FAILURE);
     window.location.assign(customerReturnPath());

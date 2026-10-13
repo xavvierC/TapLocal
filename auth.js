@@ -3,8 +3,29 @@ const AUTH_URL = 'https://zkemvzzzloeqzegxeflw.supabase.co';
 const AUTH_KEY = 'sb_publishable_GbkHpo5_x637SECY6FMYLw_GG8MCavQ';
 const AUTH_FAILURE = 'Não foi possível concluir. Tente novamente.';
 let recoverySessionReceived = false;
+const TAPLOCAL_AUTH_STORAGE = {
+  getItem(key) {
+    try { const value = window.localStorage.getItem(key); if (value !== null) return value; } catch {}
+    try { return window.sessionStorage.getItem(key); } catch { return null; }
+  },
+  setItem(key, value) {
+    let remember = false;
+    try { remember = window.localStorage.getItem('taplocal-remember') === '1'; } catch {}
+    if (remember) {
+      try { window.localStorage.setItem(key, value); try { window.sessionStorage.removeItem(key); } catch {} return; } catch {}
+      try { window.sessionStorage.setItem(key, value); } catch {}
+      return;
+    }
+    try { window.sessionStorage.setItem(key, value); try { window.localStorage.removeItem(key); } catch {} return; } catch {}
+    try { window.localStorage.setItem(key, value); } catch {}
+  },
+  removeItem(key) {
+    try { window.localStorage.removeItem(key); } catch {}
+    try { window.sessionStorage.removeItem(key); } catch {}
+  }
+};
 window.taplocalSupabase = window.supabase?.createClient(AUTH_URL, AUTH_KEY, {
-  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storage: TAPLOCAL_AUTH_STORAGE },
   global: {
     // Abort stalled requests instead of leaving a form loading indefinitely.
     fetch: async (input, options = {}) => {

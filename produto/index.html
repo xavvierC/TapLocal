@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="description" content="Conheça as placas TapLocal e escolha a opção certa para o seu negócio.">
+  <title>Placas TapLocal — escolha a sua</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/legal/styles.css">
+  <link rel="stylesheet" href="/produto/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.js" defer></script>
+  <script src="/auth.js" defer></script>
+  <script src="/orders-config.js" defer></script>
+  <script src="/header/app.js" defer></script>
+  <script src="/produto/app.js" defer></script>
+</head>
+<body class="product-page">
+<header class="header container">
+    <a class="brand" href="/" aria-label="TapLocal — início">
+      <svg class="brand-logo" viewBox="120 150 1990 440" aria-hidden="true" focusable="false">
+        <image href="/assets/taplocal-logo.png" width="2172" height="724"/>
+      </svg>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+    </nav>
+
+    <div class="header-actions"><div class="account-control">
+        <button class="account-trigger" type="button" aria-label="Minha conta" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3Z"/></svg><span class="account-label">Minha conta</span><svg class="account-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6"/></svg>
+        </button>
+        <div id="account-menu" class="account-menu" role="menu" aria-label="Minha conta" hidden>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/entrar/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6M3 12h12m-5-5 5 5-5 5"/></svg>Entrar</a>
+          <a role="menuitem" tabindex="-1" data-account-guest href="/criar-conta/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a6 6 0 0 1 6-6h2a6 6 0 0 1 5 3m4-2v8m-4-4h8"/></svg>Criar conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <a role="menuitem" tabindex="-1" data-account-member href="/area-do-cliente/" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 2-.5 2-2 1-2-.5-2 4L4.5 10v3L3 14.5l2 4 2-.5 2 1 .5 2h5l.5-2 2-1 2 .5 2-4-1.5-1.5v-3L21 8.5l-2-4-2 .5-2-1-.5-2Z"/><circle cx="12" cy="12" r="3"/></svg>Minha conta</a>
+          <div class="account-divider" role="separator" hidden></div>
+          <button type="button" role="menuitem" tabindex="-1" data-account-member data-sign-out hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6m2-14 5 5-5 5m-6-5h15"/></svg>Sair</button>
+        </div>
+      </div>
+    <a class="button primary header-cta" href="/#produtos"><svg class="cart" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h3l3 13h11l3-10H6M9 21h.01M18 21h.01"/></svg>Comprar agora <span class="arrow" aria-hidden="true">→</span></a></div>
+
+    <button class="menu-trigger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>
+      <a href="/#como-funciona">Como funciona</a>
+      <a href="/#produtos">Produtos</a>
+      <a href="/#beneficios">Benefícios</a>
+      <a href="/#depoimentos">Depoimentos</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#produtos">Comprar agora →</a>
+    </nav>
+    <p id="account-auth-error" class="account-auth-error" role="alert" hidden></p>
+  </header>
+  <main>
+    <section class="product-hero" aria-labelledby="product-title">
+      <div class="product-shell product-hero-grid">
+        <div class="product-hero-copy">
+          <p class="eyebrow">PLACAS TAPLOCAL</p>
+          <h1 id="product-title">Você escolhe o destino.<br><span>A gente configura a placa.</span></h1>
+          <p>Google, Instagram ou os dois. Escolha a placa que combina com o seu negócio e envie os dados para a gente preparar tudo.</p>
+          <a class="button primary" href="#escolha">Escolher minha placa <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+        <figure class="product-hero-media">
+          <img src="/assets/product/placas-google-lote.jpg" alt="Várias placas TapLocal para avaliações no Google" loading="lazy" decoding="async">
+          <figcaption>Várias placas, um toque para abrir o Google.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="product-media product-shell" aria-labelledby="video-title">
+      <div class="product-media-heading">
+        <p class="eyebrow">NA PRÁTICA</p>
+        <h2 id="video-title">Um toque leva direto para o seu destino.</h2>
+      </div>
+      <figure class="product-video">
+        <video controls playsinline preload="metadata" poster="/assets/product/placas-google-duas.jpg" title="Como funciona a placa TapLocal">
+          <source src="/assets/product/video-placa.mp4" type="video/mp4">
+          Seu navegador não consegue reproduzir este vídeo.
+        </video>
+        <figcaption>Como funciona: aproxime o celular ou escaneie o QR Code.</figcaption>
+      </figure>
+    </section>
+
+    <section class="product-gallery product-shell" aria-labelledby="gallery-title">
+      <div>
+        <p class="eyebrow">FEITAS PARA O BALCÃO</p>
+        <h2 id="gallery-title">Presença que fica visível.</h2>
+        <p>As placas TapLocal combinam acabamento acrílico, NFC e QR Code em uma peça pronta para receber seus clientes.</p>
+      </div>
+      <figure>
+        <img src="/assets/product/placas-google-duas.jpg" alt="Duas placas TapLocal para avaliações no Google" loading="lazy" decoding="async">
+      </figure>
+    </section>
+
+    <section class="product-how product-shell" aria-labelledby="product-how-title">
+      <p class="eyebrow">COMO FUNCIONA</p>
+      <h2 id="product-how-title">Do pedido ao balcão.</h2>
+      <ol>
+        <li><span aria-hidden="true">1</span><div><h3>Você envia os dados da empresa</h3><p>Conte para a gente qual é o seu negócio e onde a placa deve levar seus clientes.</p></div></li>
+        <li><span aria-hidden="true">2</span><div><h3>A gente configura a placa</h3><p>Preparamos o Google ou o Instagram escolhido com os dados corretos.</p></div></li>
+        <li><span aria-hidden="true">3</span><div><h3>Ela chega em até 15 dias</h3><p>Combinamos o envio pelo WhatsApp e você recebe a placa pronta para usar.</p></div></li>
+      </ol>
+    </section>
+
+    <section id="escolha" class="product-choices product-shell" aria-labelledby="choices-title">
+      <div class="product-section-heading">
+        <p class="eyebrow">ESCOLHA SUA PLACA</p>
+        <h2 id="choices-title">Uma opção para cada momento.</h2>
+      </div>
+      <div class="product-choice-grid">
+        <article class="product-choice" aria-labelledby="product-individual-title">
+          <div class="product-choice-image product-choice-single" aria-hidden="true">
+            <img class="is-selected" data-product-art="google" src="/assets/google-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+            <img data-product-art="instagram" src="/assets/instagram-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="product-choice-details">
+            <h3 id="product-individual-title">Individual</h3>
+            <p class="product-choice-subtitle">Um destino, uma placa.</p>
+            <div class="catalog-switcher catalog-destination product-destination" role="tablist" aria-label="Destino da placa Individual">
+              <span class="catalog-thumb" aria-hidden="true"></span>
+              <button type="button" role="tab" aria-selected="true" tabindex="0" data-individual="google">Google</button>
+              <button type="button" role="tab" aria-selected="false" tabindex="-1" data-individual="instagram">Instagram</button>
+            </div>
+            <p class="product-choice-price">R$ 99,90</p>
+            <p class="product-choice-shipping">frete combinado no WhatsApp</p>
+            <ul><li>1 placa, Google ou Instagram</li><li>NFC + QR Code</li><li>Configurada e pronta para usar</li></ul>
+            <a class="catalog-buy" data-checkout="individualGoogle" href="/pedido/?produto=individual-google" aria-label="Pedir Individual">Quero esta placa →</a>
+          </div>
+        </article>
+        <article class="product-choice product-choice-featured" aria-labelledby="product-duo-title">
+          <div class="product-choice-image product-choice-pair" aria-hidden="true">
+            <img src="/assets/google-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+            <img src="/assets/instagram-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="product-choice-details">
+            <h3 id="product-duo-title">Duo TapLocal</h3>
+            <p class="product-choice-subtitle">Duas placas, dois destinos.</p>
+            <span class="catalog-saving">Economize R$ 19,90</span>
+            <p class="product-choice-price">R$ 179,90</p>
+            <p class="product-choice-shipping">frete combinado no WhatsApp</p>
+            <ul><li>1 placa Google + 1 Instagram</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+            <a class="catalog-buy" data-checkout="duo" href="/pedido/?produto=duo" aria-label="Pedir Duo TapLocal">Quero esta placa →</a>
+          </div>
+        </article>
+        <article class="product-choice" aria-labelledby="product-kit-title">
+          <div class="product-choice-image product-choice-stack" aria-hidden="true">
+            <img src="/assets/google-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+            <img src="/assets/instagram-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+            <img src="/assets/google-plaque-portrait.png" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="product-choice-details">
+            <h3 id="product-kit-title">Kit Negócio</h3>
+            <p class="product-choice-subtitle">Ideal para vários pontos de atendimento.</p>
+            <span class="catalog-saving">R$ 74,98 por placa</span>
+            <p class="product-choice-price">R$ 299,90</p>
+            <p class="product-choice-shipping">frete combinado no WhatsApp</p>
+            <ul><li>4 placas à escolha</li><li>NFC + QR Code</li><li>Configuradas e prontas para usar</li></ul>
+            <a class="catalog-buy" data-checkout="kit" href="/pedido/?produto=kit" aria-label="Pedir Kit Negócio">Quero esta placa →</a>
+          </div>
+        </article>
+      </div>
+      <p class="product-reseller">Quer revender? <a href="https://wa.me/5511997112511?text=Quero%20revender%20TapLocal" target="_blank" rel="noopener">Falar sobre revenda →</a></p>
+    </section>
+
+    <section id="revenda" class="reseller-wholesale product-shell" aria-labelledby="reseller-wholesale-title">
+      <div class="product-section-heading">
+        <p class="eyebrow">PARA REVENDER</p>
+        <h2 id="reseller-wholesale-title">Compre em quantidade e revenda com margem.</h2>
+        <p>Placas sem configuração, com o mesmo design das placas prontas. Você configura a venda; a gente entrega as placas.</p>
+      </div>
+      <div class="wholesale-table-wrap">
+        <table class="wholesale-table">
+          <caption>Tabela de preços para revenda</caption>
+          <thead>
+            <tr><th scope="col">Quantidade</th><th scope="col">Preço por placa</th><th scope="col">Total</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">10 placas</th><td data-label="Preço por placa">R$ 39,90</td><td data-label="Total">R$ 399,00</td></tr>
+            <tr><th scope="row">20 placas</th><td data-label="Preço por placa">R$ 34,90</td><td data-label="Total">R$ 698,00</td></tr>
+            <tr><th scope="row">50 placas</th><td data-label="Preço por placa">R$ 29,90</td><td data-label="Total">R$ 1.495,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="wholesale-note">Preços sem frete. Frete combinado no WhatsApp.</p>
+      <a class="button primary wholesale-cta" href="https://wa.me/5511997112511?text=Quero%20revender%20TapLocal" target="_blank" rel="noopener">Quero revender <span class="arrow" aria-hidden="true">→</span></a>
+    </section>
+  </main>
+<footer class="legal-footer">
+    <a href="/politica-de-privacidade/">Política de privacidade</a>
+    <a href="/termos-de-uso/">Termos de uso</a>
+    <a href="mailto:xac.creativestudio@gmail.com">Contato</a>
+  </footer>
+</body>
+</html>

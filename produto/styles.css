@@ -303,3 +303,5 @@
   .wholesale-table tbody td:last-child { color: var(--ink); }
   .wholesale-cta { width: 100%; }
 }
+
+.product-choice h3 { scroll-margin-top: 96px; }

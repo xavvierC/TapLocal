@@ -662,3 +662,17 @@ main:has(> .how-it-works) { overflow-x: clip; }
 @media (max-width: 600px) {
   .catalog-detail-link .button { width: 100%; max-width: 420px; }
 }
+
+.catalog-card-detail-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: 4px;
+  color: var(--deep-blue);
+  font-size: 13px;
+  font-weight: 650;
+  text-align: center;
+}
+.catalog-card-detail-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.catalog-card-detail-link:focus-visible { outline: 3px solid rgba(20,108,255,.35); outline-offset: 2px; border-radius: 6px; }

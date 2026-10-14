@@ -656,6 +656,9 @@ main:has(> .how-it-works) { overflow-x: clip; }
 .catalog-buy[aria-disabled="true"] { cursor: not-allowed; pointer-events: none; }
 .catalog-buy[aria-disabled="true"] span[hidden] { display: none; }
 
+.desktop-nav a { white-space: nowrap; }
 .catalog-detail-link { margin: 24px auto 0; text-align: center; }
-.catalog-detail-link a { display: inline-flex; min-height: 44px; align-items: center; color: var(--deep-blue); font-weight: 650; text-decoration: underline; text-underline-offset: 4px; }
-.catalog-detail-link a:focus-visible { outline: 3px solid rgba(20,108,255,.35); outline-offset: 4px; border-radius: 6px; }
+.catalog-detail-link .button:focus-visible { outline: 3px solid rgba(20,108,255,.35); outline-offset: 4px; }
+@media (max-width: 600px) {
+  .catalog-detail-link .button { width: 100%; max-width: 420px; }
+}

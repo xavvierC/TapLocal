@@ -1,0 +1,12 @@
+{
+  "name": "taplocal-social-carousel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Render TapLocal Instagram carousel slides from JSON.",
+  "scripts": {
+    "render": "node render.js"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
